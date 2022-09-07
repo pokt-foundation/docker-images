@@ -1,0 +1,65 @@
+name: Build Docker Images
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - '**/Dockerfile'
+  push:
+    branches:
+      - master
+    paths:
+      - '**/Dockerfile'
+
+env:
+  BUILDER_CONFIG_FILE: image-builder.json
+  BUILDER_SCRIPT: image-builder.py
+
+jobs:
+  images-to-build:
+    runs-on: ubuntu-latest
+    name: Get images to build
+    permissions:
+      contents: read
+    outputs:
+      image-list: ${{ steps.get-images.outputs.images }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: Get all images
+        id: get-images
+        run: | 
+          echo "Changed files: $(git diff --name-only HEAD HEAD~1)"
+          IMAGES=$(git diff --name-only HEAD HEAD~1 | python $BUILDER_SCRIPT | tr -d '[:space:]')
+          echo "::set-output name=images::$IMAGES"
+
+  build-docker:
+    runs-on: ubuntu-latest
+    needs: images-to-build
+    strategy:
+      fail-fast: false
+      matrix: 
+        images: ${{ fromJson(needs.images-to-build.outputs.image-list) }}
+    name: Build ${{ matrix.images.image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        if: ${{ github.ref_name == 'master' }} # Don't login if it's not in master
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          push: ${{ github.ref_name == 'master' }} # Don't push if it's not in master
+          context: ${{ matrix.images.context }}
+          file: ${{ matrix.images.context }}/${{ matrix.images.dockerfile }}
+          tags: ${{ matrix.images.image }}:${{ matrix.images.tag }}
