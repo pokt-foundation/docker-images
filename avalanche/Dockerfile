@@ -43,7 +43,7 @@ RUN git clone --depth 1 -b ${AVALANCHE_SUBNETS_RELEASE} ${AVALANCHE_SUBNETS_REPO
 RUN ./scripts/build.sh /avalanchego/build/plugins/${DFK_VM_ID}
 RUN ./scripts/build.sh /avalanchego/build/plugins/${SWIMMER_VM_ID}
 
-FROM debian:buster as execution
+FROM debian:buster-slim as execution
 
 ARG DFK_ETH_CHAIN_ID
 ARG DFK_BLOCKCHAIN_ID
