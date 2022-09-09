@@ -1,8 +1,8 @@
 [
   {
-    "image": "pocketfoundation/harmony",
-    "context": "hmy-mainnet",
+    "image": "pocketfoundation/avalanchego",
+    "context": "avalanche",
     "dockerfile": "Dockerfile",
-    "tag": "v4.3.12"
-  }
+    "tag": "v1.8.5-subnets"
+},
 ]
