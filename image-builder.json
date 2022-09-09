@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "image": "pocketfoundation/harmony",
+    "context": "hmy-mainnet",
+    "dockerfile": "Dockerfile",
+    "tag": "v4.3.12"
+  }
+]

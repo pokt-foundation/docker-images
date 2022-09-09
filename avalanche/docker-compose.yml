@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  avax_subnets:
+    container_name: avax_subnets
+    build: .
+    restart: unless-stopped
+    ports:
+      - "9650:9650"
+      - "9661:9651"
+      - "9661:9651/udp"
+      - "9100:9100"
+    volumes:
+      - "/data-avax:/root/.avalanchego"
+    command:
+      - --http-host=
+      - --config-file=/home/config.json
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
