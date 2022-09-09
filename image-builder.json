@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "image": "pocketfoundation/avalanchego",
+    "context": "avalanche",
+    "dockerfile": "Dockerfile",
+    "tag": "v1.8.5-subnets"
+  }
+]
