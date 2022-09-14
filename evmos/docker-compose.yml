@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  evm1:
+    container_name: evmos
+    build: .
+    restart: unless-stopped
+    cpus: '8'
+    mem_limit: '32G'
+    command: sh /root/entrypoint.sh
+    volumes:
+      - /data-evmos/data:/root/.evmosd/data
+    ports:
+      - 8545:8545
