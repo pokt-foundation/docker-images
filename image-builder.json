@@ -10,5 +10,11 @@
     "context": "evmos",
     "dockerfile": "Dockerfile",
     "tag": "v7.0.0"
+  },
+  {
+    "image": "pocketfoundation/harmony",
+    "context": "harmony",
+    "dockerfile": "Dockerfile",
+    "tag": "v4.3.12"
   }
 ]
