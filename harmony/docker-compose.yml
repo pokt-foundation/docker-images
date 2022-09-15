@@ -4,7 +4,7 @@ services:
   harmony:
     container_name: harmony
     build: .
-    # cpus: 16
+    cpus: 16
     mem_limit: '32G'
     command: "-c harmony.conf --run.shard=0 --p2p.port=9000 --p2p.no-private-ip-scan"
     expose:
