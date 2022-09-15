@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  harmony:
+    container_name: harmony
+    build: .
+    # cpus: 16
+    mem_limit: '32G'
+    command: "-c harmony.conf --run.shard=0 --p2p.port=9000 --p2p.no-private-ip-scan"
+    expose:
+      - "5000"
+    volumes:
+      - "/data-harmony/hmy/0:/harmony"
+      - "/logs:/harmony/latest"
+      - "./harmony.conf:/harmony/harmony.conf"
+    restart: unless-stopped
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
