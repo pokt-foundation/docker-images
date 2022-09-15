@@ -16,5 +16,11 @@
     "context": "harmony",
     "dockerfile": "Dockerfile",
     "tag": "v4.3.12"
+  },
+  {
+    "image": "pocketfoundation/fantom",
+    "context": "fantom",
+    "dockerfile": "Dockerfile",
+    "tag": "v1.1.1-rc.2"
   }
 ]

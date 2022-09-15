@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  fantom:
+    container_name: fantom
+    build: .
+    restart: unless-stopped
+    cpus: 8
+    mem_limit: "16GB"
+    command:
+     - opera
+     - --datadir=/root/.opera
+     - --genesis=/root/.opera/mainnet.g
+     - --http
+     - --http.port=8545
+     - --http.addr=0.0.0.0
+     - --http.vhosts=*
+     - --http.corsdomain=*
+    ports:
+      - "8545:8545"
+      - "5050:5050"
+      - "5050:5050/udp"
+    volumes:
+      - "/data-fantom:/root"
+      # https://download.fantom.network/
+      - "./mainnet.g:/root/.opera/mainnet.g"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
