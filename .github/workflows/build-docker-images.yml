@@ -30,7 +30,7 @@ jobs:
           fetch-depth: 2
       - name: Get all images
         id: get-images
-        run: | 
+        run: |
           echo "Changed files: $(git diff --name-only HEAD HEAD~1)"
           IMAGES=$(git diff --name-only HEAD HEAD~1 | python $BUILDER_SCRIPT | tr -d '[:space:]')
           echo "::set-output name=images::$IMAGES"
@@ -40,7 +40,7 @@ jobs:
     needs: images-to-build
     strategy:
       fail-fast: false
-      matrix: 
+      matrix:
         images: ${{ fromJson(needs.images-to-build.outputs.image-list) }}
     name: Build ${{ matrix.images.image }}
     steps:
@@ -51,13 +51,29 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to DockerHub
-        if: ${{ github.ref_name == 'master' }} # Don't login if it's not in master
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build
-        uses: docker/build-push-action@v2
+      - name: Build and export to Docker
+        uses: docker/build-push-action@v3
+        with:
+          context: ${{ matrix.images.context }}
+          load: true
+          tags: ${{ matrix.images.image }}:${{ matrix.images.tag }}
+      - name: Scan image
+        run: |
+          docker scan \
+            --accept-license \
+            --json \
+            --severity=high \
+            --severity=medium \
+            --file=${{ matrix.images.context }}/${{ matrix.images.dockerfile }} \
+            ${{ matrix.images.image }} > report.json
+          cat report.json
+          cat report.json | jq '.vulnerabilities | any | not'
+      - name: Build and push
+        uses: docker/build-push-action@v3
         with:
           push: ${{ github.ref_name == 'master' }} # Don't push if it's not in master
           context: ${{ matrix.images.context }}
