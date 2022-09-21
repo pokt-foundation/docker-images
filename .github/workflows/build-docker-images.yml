@@ -64,7 +64,6 @@ jobs:
       - name: Scan image
         run: |
           docker scan \
-            --accept-license \
             --json \
             --severity=high \
             --severity=medium \
