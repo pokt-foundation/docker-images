@@ -1,7 +1,7 @@
 FROM golang:1.18.5-buster AS build-env
 
 ARG EVMOS_REPO="https://github.com/evmos/evmos.git"
-ARG EVMOS_RELEASE="v7.0.0"
+ARG EVMOS_RELEASE="v8.0.0"
 ARG EMVOS_GENESIS_JSON="https://archive.evmos.org/mainnet/genesis.json"
 
 WORKDIR /go/src/github.com/evmos/evmos
