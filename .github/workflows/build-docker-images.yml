@@ -55,23 +55,23 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and export to Docker
-        uses: docker/build-push-action@v3
-        with:
-          context: ${{ matrix.images.context }}
-          load: true
-          tags: ${{ matrix.images.image }}:${{ matrix.images.tag }}
-      - name: Scan image
-        run: |
-          docker scan \
-            --accept-license \
-            --json \
-            --severity=high \
-            --severity=medium \
-            --file=${{ matrix.images.context }}/${{ matrix.images.dockerfile }} \
-            ${{ matrix.images.image }} > report.json
-          cat report.json
-          cat report.json | jq '.vulnerabilities | any | not'
+      # - name: Build and export to Docker
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     context: ${{ matrix.images.context }}
+      #     load: true
+      #     tags: ${{ matrix.images.image }}:${{ matrix.images.tag }}
+      # - name: Scan image
+      #   run: |
+      #     docker scan \
+      #       --accept-license \
+      #       --json \
+      #       --severity=high \
+      #       --severity=medium \
+      #       --file=${{ matrix.images.context }}/${{ matrix.images.dockerfile }} \
+      #       ${{ matrix.images.image }} > report.json
+      #     cat report.json
+      #     cat report.json | jq '.vulnerabilities | any | not'
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
