@@ -10,8 +10,8 @@ RUN cd /root && \
     git clone --depth 1 --branch $GIT_COMMIT $GIT_URL && \
     cd /root/heimdall && \
     make install network=mainnet
-
 #================================================================
+
 FROM alpine:3.16
 ENV USERNAME=appuser \
     APP_PATH=/data

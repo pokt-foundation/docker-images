@@ -1,5 +1,5 @@
 # Main repo
-https://github.com/binance-chain/bsc
+https://github.com/ledgerwatch/erigon
 
 # Description
 This docker container has installed main tools to work with vault, Azure, kubernetes ... and is intended to be used as k8s jobs.
@@ -11,11 +11,11 @@ Entrypoins (or cmd) can be provided with helm (via configmaps).
 
 # Build and Run
 
-`docker build --rm -t bsc:latest .`
+`docker build --rm -t erigon:latest .`
 
 To run the image
 
-`docker run -it bsc:latest bash`
+`docker run -it erigon:latest bash`
 
 You can run geth and configs will be in /node folder
 
