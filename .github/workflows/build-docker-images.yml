@@ -63,7 +63,7 @@ jobs:
           tags: ${{ matrix.images.image }}:${{ matrix.images.tag }}
       - name: Scan image
         run: |
-          apt-get update && apt-get install docker-scan-plugin
+          sudo apt-get update && sudo apt-get install docker-scan-plugin
           docker scan \
             --accept-license \
             --json \
