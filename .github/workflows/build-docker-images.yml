@@ -78,8 +78,7 @@ jobs:
             --severity=high \
             --severity=medium \
             --file=${{ matrix.images.context }}/${{ matrix.images.dockerfile }} \
-            ${{ matrix.images.image }}:${{ matrix.images.tag }} > report.json
-          exit 0
+            ${{ matrix.images.image }}:${{ matrix.images.tag }} > report.json | true
       - name: Check for vulnerabilities
         run: |
           VULNERABILITIES_EXIST=$(cat report.json | jq '.vulnerabilities | any | not')
