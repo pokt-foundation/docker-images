@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  binance:
+    container_name: bsc
+    build: .
+    #cpus: "16"
+    mem_limit: "32G"
+    command: "geth --config /root/config.toml --datadir /root/.ethereum  --snapshot=false  --diffsync --cache 8000 --rpc.allow-unprotected-txs --txlookuplimit 0"
+    ports:
+      - "8545:8545"
+      - "30303:30303"
+      - "30303:30303/udp"
+    volumes:
+      - "/data-bsc:/root/.ethereum"
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"

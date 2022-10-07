@@ -55,8 +55,33 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and export to Docker
+        uses: docker/build-push-action@v3
+        with:
+          context: ${{ matrix.images.context }}
+          load: true
+          tags: ${{ matrix.images.image }}:${{ matrix.images.tag }}
+      - name: Scan image
+        run: |
+          apt-get update && apt-get install docker-scan-plugin
+          docker scan \
+            --accept-license \
+            --json \
+            --severity=high \
+            --severity=medium \
+            --file=${{ matrix.images.context }}/${{ matrix.images.dockerfile }} \
+            ${{ matrix.images.image }} > report.json
+          VULNERABILITIES_EXIST=$(cat report.json | jq '.vulnerabilities | any | not')
+          if [[ $VULNERABILITIES_EXIST ]]; then
+            cat report.json
+            echo "The image contains one or more >= MEDIUM vulnerabilites"
+            echo "Check the report above"
+            exit 1
+          else
+            exit 0
+          fi
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: ${{ github.ref_name == 'master' }} # Don't push if it's not in master
           context: ${{ matrix.images.context }}
