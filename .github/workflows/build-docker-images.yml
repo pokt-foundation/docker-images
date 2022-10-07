@@ -68,6 +68,7 @@ jobs:
           chmod +x ~/.docker/cli-plugins/docker-scan
       - name: Scan image
         run: |
+          docker scan --login
           docker scan \
             --accept-license \
             --json \
