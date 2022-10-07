@@ -62,10 +62,12 @@ jobs:
           load: true
           tags: ${{ matrix.images.image }}:${{ matrix.images.tag }}
       - name: Scan image
-        run: |
+        uses: ubuntu-latest
+      - run: |
           mkdir -p ~/.docker/cli-plugins
           curl https://github.com/docker/scan-cli-plugin/releases/latest/download/docker-scan_linux_amd64 -L -s -S -o ~/.docker/cli-plugins/docker-scan
           chmod +x ~/.docker/cli-plugins/docker-scan
+      - run: |
           docker scan \
             --accept-license \
             --json \
@@ -73,6 +75,7 @@ jobs:
             --severity=medium \
             --file=${{ matrix.images.context }}/${{ matrix.images.dockerfile }} \
             ${{ matrix.images.image }} > report.json
+      - run: |
           VULNERABILITIES_EXIST=$(cat report.json | jq '.vulnerabilities | any | not')
           if [[ $VULNERABILITIES_EXIST ]]; then
             cat report.json
