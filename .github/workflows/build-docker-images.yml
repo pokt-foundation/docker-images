@@ -77,11 +77,12 @@ jobs:
             --json \
             --severity=high \
             --severity=medium \
+            --file=${{ matrix.images.context }}/${{ matrix.images.dockerfile }} \
             ${{ matrix.images.image }}:${{ matrix.images.tag }} > report.json | true
       - name: Check for vulnerabilities
         run: |
           cat report.json
-          VULNERABILITIES_EXIST=$(cat report.json | jq '.vulnerabilities | any | not')
+          VULNERABILITIES_EXIST=$(cat report.json | jq 'inputs[] | .vulnerabilities | any | not')
           if [[ $VULNERABILITIES_EXIST ]]; then
             echo "The image contains one or more >= MEDIUM vulnerabilites"
             echo "Check the report above"
