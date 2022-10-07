@@ -81,9 +81,9 @@ jobs:
             ${{ matrix.images.image }}:${{ matrix.images.tag }} > report.json | true
       - name: Check for vulnerabilities
         run: |
+          cat report.json
           VULNERABILITIES_EXIST=$(cat report.json | jq '.vulnerabilities | any | not')
           if [[ $VULNERABILITIES_EXIST ]]; then
-            cat report.json
             echo "The image contains one or more >= MEDIUM vulnerabilites"
             echo "Check the report above"
             exit 1
