@@ -77,7 +77,6 @@ jobs:
             --json \
             --severity=high \
             --severity=medium \
-            --file=${{ matrix.images.context }}/${{ matrix.images.dockerfile }} \
             ${{ matrix.images.image }}:${{ matrix.images.tag }} > report.json | true
       - name: Check for vulnerabilities
         run: |
