@@ -82,7 +82,7 @@ jobs:
       - name: Check for vulnerabilities
         run: |
           cat report.json
-          VULNERABILITIES_EXIST=$(cat report.json | jq '.[0] | .vulnerabilities | any | not')
+          VULNERABILITIES_EXIST=$(cat report.json | jq '.[0] | .vulnerabilities | any')
           if [[ $VULNERABILITIES_EXIST ]]; then
             echo "The image contains one or more >= MEDIUM vulnerabilites"
             echo "Check the report above"
