@@ -91,6 +91,7 @@ jobs:
             exit 0
           fi
       - name: Build and push
+        if: ${{ github.ref_name == 'master' }} # Don't run if it's not in master
         uses: docker/build-push-action@v3
         with:
           push: ${{ github.ref_name == 'master' }} # Don't push if it's not in master
