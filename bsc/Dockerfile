@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:buster-slim
 
 ARG BSC_RELEASE="v1.1.15"
 
