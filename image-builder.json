@@ -6,6 +6,12 @@
     "tag": "v1.8.6-subnets"
   },
   {
+    "image": "pocketfoundation/bsc",
+    "context": "bsc",
+    "dockerfile": "Dockerfile",
+    "tag": "v1.1.15"
+  },
+  {
     "image": "pocketfoundation/evmos",
     "context": "evmos",
     "dockerfile": "Dockerfile",

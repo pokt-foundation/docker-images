@@ -55,8 +55,44 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and export to Docker
+        uses: docker/build-push-action@v3
+        with:
+          context: ${{ matrix.images.context }}
+          load: true
+          tags: ${{ matrix.images.image }}:${{ matrix.images.tag }}
+      - name: Install scan cli
+        run: |
+          mkdir -p ~/.docker/cli-plugins
+          curl https://github.com/docker/scan-cli-plugin/releases/latest/download/docker-scan_linux_amd64 -L -s -S -o ~/.docker/cli-plugins/docker-scan
+          chmod +x ~/.docker/cli-plugins/docker-scan
+      - name: Login to Snyk
+        env:
+          SNYK_AUTH_TOKEN: ${{ secrets.SNYK_AUTH_TOKEN }}
+        run: docker scan --login --accept-license --token $SNYK_AUTH_TOKEN
+      - name: Scan image
+        run: |
+          docker scan \
+            --accept-license \
+            --json \
+            --severity=high \
+            --severity=medium \
+            --file=${{ matrix.images.context }}/${{ matrix.images.dockerfile }} \
+            ${{ matrix.images.image }}:${{ matrix.images.tag }} > report.json | true
+      - name: Check for vulnerabilities
+        run: |
+          cat report.json
+          VULNERABILITIES_EXIST=$(cat report.json | jq '.[0] | .vulnerabilities | any')
+          if [ "$VULNERABILITIES_EXIST" = true ]; then
+            echo "The image contains one or more >= MEDIUM vulnerabilites"
+            echo "Check the report above"
+            exit 1
+          else
+            exit 0
+          fi
       - name: Build and push
-        uses: docker/build-push-action@v2
+        if: ${{ github.ref_name == 'master' }} # Don't run if it's not in master
+        uses: docker/build-push-action@v3
         with:
           push: ${{ github.ref_name == 'master' }} # Don't push if it's not in master
           context: ${{ matrix.images.context }}
