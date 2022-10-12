@@ -9,7 +9,7 @@
     "image": "pocketfoundation/bsc",
     "context": "bsc",
     "dockerfile": "Dockerfile",
-    "tag": "v1.1.15"
+    "tag": "v1.1.16"
   },
   {
     "image": "pocketfoundation/evmos",
