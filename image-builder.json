@@ -33,7 +33,7 @@
     "image": "pocketfoundation/erigon",
     "context": "erigon",
     "dockerfile": "Dockerfile",
-    "tag": "v2022.09.03"
+    "tag": "2022.10.01"
   },
   {
     "image": "pocketfoundation/heimdall",
