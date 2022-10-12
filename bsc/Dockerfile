@@ -1,6 +1,6 @@
 FROM debian:bullseye-slim
 
-ARG BSC_RELEASE="v1.1.15"
+ARG BSC_RELEASE="v1.1.16"
 
 WORKDIR /root
 
