@@ -12,7 +12,7 @@ ARG SWIMMER_ETH_CHAIN_ID="73772"
 ARG SWIMMER_VM_ID="srSGD5JeYhL8GLx4RUw53VN5TcoBbax6EeCYmy5S3DiteJhdF"
 ARG SWIMMER_BLOCKCHAIN_ID="2K33xS9AyP9oCDiHYKVrHe7F54h2La5D8erpTChaAhdzeSu2RX"
 
-FROM golang:1.18.5-buster AS builder
+FROM golang:1.18.5-bullseye AS builder
 
 ARG AVALANCHE_REPO
 ARG AVALANCHE_RELEASE
@@ -24,7 +24,7 @@ ARG DFK_VM_ID
 ARG SWIMMER_VM_ID
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends git bash=5.0-4 git=1:2.20.1-2+deb10u3 make=4.2.1-1.2 gcc=4:8.3.0-1 musl-dev=1.1.21-2 ca-certificates=20200601~deb10u2 linux-headers-amd64
+    apt-get install -y --no-install-recommends git bash make gcc musl-dev ca-certificates linux-headers-amd64
 
 # Build Avalanche
 WORKDIR /avalanchego
@@ -43,7 +43,7 @@ RUN git clone --depth 1 -b ${AVALANCHE_SUBNETS_RELEASE} ${AVALANCHE_SUBNETS_REPO
 RUN ./scripts/build.sh /avalanchego/build/plugins/${DFK_VM_ID}
 RUN ./scripts/build.sh /avalanchego/build/plugins/${SWIMMER_VM_ID}
 
-FROM debian:buster-slim as execution
+FROM debian:bullseye-slim as execution
 
 ARG DFK_ETH_CHAIN_ID
 ARG DFK_BLOCKCHAIN_ID
