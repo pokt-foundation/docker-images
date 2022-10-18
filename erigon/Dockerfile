@@ -18,7 +18,7 @@ RUN git clone --depth 1 --branch $GIT_COMMIT $GIT_URL /src
 WORKDIR /src
 RUN git submodule update --init
 RUN make all
-#================================================================
+#==============================================================
 
 FROM --platform=linux/amd64 alpine:3.16
 ENV USERNAME=appuser \
