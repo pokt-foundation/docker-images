@@ -1,4 +1,4 @@
-FROM golang:1.18.5-buster AS build-env
+FROM golang:1.18.5-bullseye AS build-env
 
 ARG EVMOS_REPO="https://github.com/evmos/evmos.git"
 ARG EVMOS_RELEASE="v8.2.3"
@@ -15,7 +15,7 @@ RUN wget ${EMVOS_GENESIS_JSON}
 
 RUN make build
 
-FROM debian:buster-slim as execution
+FROM debian:bullseye-slim as execution
 
 RUN apt update
 RUN apt install ca-certificates jq -y
