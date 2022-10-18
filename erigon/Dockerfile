@@ -2,7 +2,7 @@ FROM --platform=linux/amd64 golang:1.19-alpine3.16 AS builder
 
 ARG GIT_URL="https://github.com/ledgerwatch/erigon.git"
 # AUTO_UPDATE_GIT_COMMIT - next line will be overwritten by build.sh to the latest found releas
-ARG GIT_COMMIT="v2.28.0"
+ARG GIT_COMMIT="v2.28.1"
 
 RUN apk --no-cache add make \
                         gcc \
