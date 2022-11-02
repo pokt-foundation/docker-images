@@ -3,7 +3,7 @@
     "image": "pocketfoundation/avalanchego",
     "context": "avalanche",
     "dockerfile": "Dockerfile",
-    "tag": "v1.9.0-subnets"
+    "tag": "v1.9.1-subnets"
   },
   {
     "image": "pocketfoundation/bsc",
