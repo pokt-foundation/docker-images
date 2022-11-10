@@ -40,5 +40,11 @@
     "context": "heimdall",
     "dockerfile": "Dockerfile",
     "tag": "v0.2.11"
+  },
+  {
+    "image": "pocketfoundation/sui",
+    "context": "sui",
+    "dockerfile": "Dockerfile",
+    "tag": "devnet-0.15.0"
   }
 ]
