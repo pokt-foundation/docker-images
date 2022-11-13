@@ -39,7 +39,7 @@
     "image": "pocketfoundation/heimdall",
     "context": "heimdall",
     "dockerfile": "Dockerfile",
-    "tag": "v0.2.11"
+    "tag": "v0.2.12"
   },
   {
     "image": "pocketfoundation/sui",
