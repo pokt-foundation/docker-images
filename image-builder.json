@@ -45,6 +45,6 @@
     "image": "pocketfoundation/sui",
     "context": "sui",
     "dockerfile": "Dockerfile",
-    "tag": "devnet-0.15.0"
+    "tag": "devnet-0.15.1"
   }
 ]
