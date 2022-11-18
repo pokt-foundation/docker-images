@@ -3,7 +3,7 @@ FROM --platform=linux/amd64 golang:bullseye AS builder
 
 ARG GIT_URL="https://github.com/ledgerwatch/erigon.git"
 # AUTO_UPDATE_GIT_COMMIT - next line will be overwritten by build.sh to the latest found releas
-ARG GIT_COMMIT="v2.29.0"
+ARG GIT_COMMIT="v2.30.0"
 
 #build-base linux-headers git bash ca-certificates libstdc++
 RUN apt update && \
