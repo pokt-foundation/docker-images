@@ -8,7 +8,7 @@ RUN apt update && \
     rm -rf /var/cache/apk/*
 ARG GIT_URL="https://github.com/MystenLabs/sui.git"
 # AUTO_UPDATE_GIT_COMMIT - next line will be overwritten by build.sh to the latest found releas
-ARG GIT_COMMIT="devnet-0.15.1"
+ARG GIT_COMMIT="devnet-0.16.0"
 
 RUN git clone --depth 1 --branch $GIT_COMMIT $GIT_URL /src
 WORKDIR /src
