@@ -13,11 +13,11 @@ RUN apt update && \
     apt install -y --no-install-recommends \
         tzdata \
         libjemalloc-dev \
-        curl \
+        wget \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-RUN curl -L -o /usr/local/bin/sui-node ${GIT_URL}/releases/download/${GIT_COMMIT}/sui-node && \
+RUN wget -O /usr/local/bin/sui-node ${GIT_URL}/releases/download/${GIT_COMMIT}/sui-node && \
     chmod a+x /usr/local/bin/sui-node
 
 RUN groupadd -g 1001 ${USERNAME} \
