@@ -1,22 +1,9 @@
-FROM --platform=linux/amd64 rust:1.65-buster AS builder
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && \
-    apt -y dist-upgrade && \
-    apt install -y --no-install-recommends \
-        clang \
-        ca-certificates && \
-    rm -rf /var/cache/apk/*
-ARG GIT_URL="https://github.com/MystenLabs/sui.git"
+FROM --platform=linux/amd64 debian:bullseye-slim
+
+ARG GIT_URL="https://github.com/MystenLabs/sui"
 # AUTO_UPDATE_GIT_COMMIT - next line will be overwritten by build.sh to the latest found releas
-ARG GIT_COMMIT="devnet-0.16.0"
+ARG GIT_COMMIT="devnet-0.17.0"
 
-RUN git clone --depth 1 --branch $GIT_COMMIT $GIT_URL /src
-WORKDIR /src
-RUN cargo build --release
-
-#==============================================================
-
-FROM --platform=linux/amd64 debian:buster-slim
 ENV DEBIAN_FRONTEND=noninteractive
 ENV USERNAME=appuser \
     APP_PATH=/data
@@ -30,7 +17,8 @@ RUN apt update && \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /src/target/release/sui-node /usr/local/bin/
+RUN curl -L -o /usr/local/bin/sui-node ${GIT_URL}/releases/download/${GIT_COMMIT}/sui-node && \
+    chmod a+x /usr/local/bin/sui-node
 
 RUN groupadd -g 1001 ${USERNAME} \
     && useradd -m -d ${APP_PATH} -u 1001 -g 1001 ${USERNAME}
