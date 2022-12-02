@@ -11,10 +11,13 @@ images_need_build = []
 
 changed_files = sys.stdin.read().splitlines()
 
-for image in images_to_build:
-    path_to_dockerfile = image["context"] + "/" + image["dockerfile"]
+for i in range(0, len(changed_files)):
+    changed_files[i] = "/".join(changed_files[i].split("/")[:-1])
 
-    if path_to_dockerfile in changed_files:
+for image in images_to_build:
+    path = image["context"]
+
+    if path in changed_files:
         images_need_build.append(image)
 
 sys.stdout.write(json.dumps(images_need_build) + "\n")

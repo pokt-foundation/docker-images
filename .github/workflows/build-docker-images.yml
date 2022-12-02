@@ -37,6 +37,7 @@ jobs:
 
   build-docker:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     needs: images-to-build
     strategy:
       fail-fast: false

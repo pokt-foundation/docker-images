@@ -1,0 +1,54 @@
+name: Watcher
+on:
+  schedule:
+    - cron:  '0 */12 * * *'
+
+env:
+  WATCHER_SCRIPT: watcher.py
+  BUILDER_CONFIG_FILE: image-builder.json
+
+jobs:
+  images-to-build:
+    runs-on: ubuntu-latest
+    name: Get images to build
+    permissions:
+      contents: read
+    outputs:
+      image-list: ${{ steps.get-images.outputs.images }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: Get all images
+        id: get-images
+        run: |
+          IMAGES=$(python $WATCHER_SCRIPT | tr -d '[:space:]')
+          echo "::set-output name=images::$IMAGES"
+
+  open-pr:
+    runs-on: ubuntu-latest
+    needs: images-to-build
+    strategy:
+      fail-fast: false
+      matrix:
+        images: ${{ fromJson(needs.images-to-build.outputs.image-list) }}
+    name: Pull request for ${{ matrix.images.image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Commit file into new branches
+        run: |
+          git checkout -b "bump-${{ matrix.images.context }}-to-${{ matrix.images.new_tag }}"
+          echo "${{ matrix.images.new_tag }}" > ${{ matrix.images.context }}/current
+          git add .
+          git commit -m "Bump ${{ matrix.images.context }} to ${{ matrix.images.new_tag }}"
+          git push --set-upstream origin bump-${{ matrix.images.context }}-to-${{ matrix.images.new_tag }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: 'Bump ${{ matrix.images.context }} to ${{ matrix.images.new_tag }}'
+          body: This PR is auto-generated.
+          branch: bump-${{ matrix.images.context }}-to-${{ matrix.images.new_tag }}
+          delete-branch: true
