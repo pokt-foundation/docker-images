@@ -1,9 +1,8 @@
-
 FROM --platform=linux/amd64 golang:bullseye AS builder
 
 ARG GIT_URL="https://github.com/ledgerwatch/erigon.git"
 # AUTO_UPDATE_GIT_COMMIT - next line will be overwritten by build.sh to the latest found releas
-ARG GIT_COMMIT="v2.30.0"
+ARG RELEASE="v2.30.0"
 
 #build-base linux-headers git bash ca-certificates libstdc++
 RUN apt update && \
@@ -20,7 +19,7 @@ RUN apt update && \
                         # libgcc \
                         # gcc \
                         # g++
-RUN git clone --depth 1 --branch $GIT_COMMIT $GIT_URL /src
+RUN git clone --depth 1 --branch $RELEASE $GIT_URL /src
 WORKDIR /src
 RUN git submodule update --init
 RUN make all

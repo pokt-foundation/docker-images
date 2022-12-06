@@ -1,13 +1,13 @@
 FROM golang:1.19-alpine3.16 AS builder
 
 ARG GIT_URL="https://github.com/maticnetwork/heimdall.git"
-ARG GIT_COMMIT="v0.2.12"
+ARG RELEASE="v0.2.12"
 
 RUN apk add --no-cache make gcc musl-dev linux-headers git
 
 ENV GOBIN $GOPATH/bin
 RUN cd /root && \
-    git clone --depth 1 --branch $GIT_COMMIT $GIT_URL && \
+    git clone --depth 1 --branch $RELEASE $GIT_URL && \
     cd /root/heimdall && \
     make install network=mainnet
 #================================================================

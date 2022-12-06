@@ -37,6 +37,7 @@ jobs:
 
   build-docker:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     needs: images-to-build
     strategy:
       fail-fast: false
@@ -82,7 +83,7 @@ jobs:
       - name: Check for vulnerabilities
         run: |
           cat report.json
-          VULNERABILITIES_EXIST=$(cat report.json | jq '.[0] | .vulnerabilities | any')
+          VULNERABILITIES_EXIST=$(cat report.json | jq 'if type == "array" then .[0] else . end | .vulnerabilities | any')
           if [ "$VULNERABILITIES_EXIST" = true ]; then
             echo "The image contains one or more >= MEDIUM vulnerabilites"
             echo "Check the report above"

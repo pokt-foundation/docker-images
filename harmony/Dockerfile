@@ -1,6 +1,6 @@
 FROM alpine:3.15
 
-ARG HARMONY_RELEASE="v4.3.12"
+ARG RELEASE="v4.3.12"
 
 RUN apk add --no-cache bash curl libstdc++ gmp-dev libc6-compat bind-tools jq && ln -s libcrypto.so.1.1 /lib/libcrypto.so.10
 
@@ -18,7 +18,7 @@ ENV NODE_NETWORK_TYPE "mainnet"
 
 WORKDIR /harmony
 
-RUN curl -LO https://github.com/harmony-one/harmony/releases/download/${HARMONY_RELEASE}/harmony
+RUN curl -LO https://github.com/harmony-one/harmony/releases/download/${RELEASE}/harmony
 RUN mv harmony /bin/harmony
 RUN chmod +x /bin/harmony
 
