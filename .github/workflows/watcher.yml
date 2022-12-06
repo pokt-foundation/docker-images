@@ -26,6 +26,10 @@ jobs:
           IMAGES=$(python $WATCHER_SCRIPT | tr -d '[:space:]')
           echo $IMAGES
           echo "images=$IMAGES" >> $GITHUB_OUTPUT
+      - uses: actions/upload-artifact@v2
+        with:
+          name: image-builder.json
+          path: $BUILDER_CONFIG_FILE
 
   open-pr:
     runs-on: ubuntu-latest
@@ -40,6 +44,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
+      - uses: actions/download-artifact@v2
+        with:
+          name: image-builder.json
+          path: $BUILDER_CONFIG_FILE
       - name: Commit file into new branches
         run: |
           git config --global user.name 'GitHub Actions'
@@ -55,6 +63,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: 'Bump ${{ matrix.images.context }} to ${{ matrix.images.tag }}'
           body: This PR is auto-generated.
+          base: master
           branch: bump-${{ matrix.images.context }}-to-${{ matrix.images.tag }}
           team-reviewers: pokt-foundation/devops
           delete-branch: true
