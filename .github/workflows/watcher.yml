@@ -19,8 +19,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
       - name: Get all images
         id: get-images
         run: |
@@ -39,6 +37,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
       - name: Commit file into new branches
         run: |
           git checkout -b "bump-${{ matrix.images.context }}-to-${{ matrix.images.tag }}"
