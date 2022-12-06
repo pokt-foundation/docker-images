@@ -1,4 +1,3 @@
-
 FROM --platform=linux/amd64 golang:bullseye AS builder
 
 ARG GIT_URL="https://github.com/ledgerwatch/erigon.git"

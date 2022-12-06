@@ -4,10 +4,7 @@ ARG RELEASE="v1.1.16"
 
 WORKDIR /root
 
-RUN apt-get update && apt-get install -y \
-      wget \
-      curl \
-      jq \
+RUN apt-get update && apt-get install -y wget \
     && rm -rf /var/lib/apt/lists/*
 
 # grabs the latest release of BSC from Github
