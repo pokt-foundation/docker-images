@@ -52,6 +52,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: 'Bump ${{ matrix.images.context }} to ${{ matrix.images.tag }}'
+          commit-message: 'Bump ${{ matrix.images.context }} to ${{ matrix.images.tag }}'
           body: This PR is auto-generated.
           base: master
           branch: bump-${{ matrix.images.context }}-to-${{ matrix.images.tag }}
