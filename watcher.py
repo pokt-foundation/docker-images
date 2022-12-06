@@ -29,8 +29,6 @@ with open(BUILDER_CONFIG_FILE) as f:
           image["tag"] = latest_release
 
           images_to_build.append(image_copy)
-      else:
-        print("Skipping " + image["image"])
 
       new_image_builder_json.append(image)
     except:
