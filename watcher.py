@@ -6,8 +6,6 @@ from github import Github
 
 BUILDER_CONFIG_FILE = os.getenv("BUILDER_CONFIG_FILE")
 
-new_image_builder_json = []
-
 with open(BUILDER_CONFIG_FILE) as f:
   images = json.load(f)
   images_to_build = []
@@ -29,13 +27,7 @@ with open(BUILDER_CONFIG_FILE) as f:
           image["tag"] = latest_release
 
           images_to_build.append(image_copy)
-
-      new_image_builder_json.append(image)
     except:
-      new_image_builder_json.append(image)
       continue
-
-with open(BUILDER_CONFIG_FILE, 'w', encoding='utf-8') as f:
-  json.dump(new_image_builder_json, f, ensure_ascii=False, indent=2)
 
 sys.stdout.write(json.dumps(images_to_build) + "\n")
