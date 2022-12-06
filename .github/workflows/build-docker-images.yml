@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "Changed files: $(git diff --name-only HEAD HEAD~1)"
           IMAGES=$(git diff --name-only HEAD HEAD~1 | python $BUILDER_SCRIPT | tr -d '[:space:]')
-          echo "::set-output name=images::$IMAGES"
+          echo "images=$IMAGES" >> $GITHUB_OUTPUT
 
   build-docker:
     runs-on: ubuntu-latest
