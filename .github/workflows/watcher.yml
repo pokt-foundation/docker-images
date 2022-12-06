@@ -42,7 +42,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
       - name: Update image-builder.json
         run: |
-          jq -r '(.[] | select(.context == "${{ matrix.images.context }}") | .tag) |= "${{ matrix.images.tag }}"' $BUILDER_CONFIG_FILE
+          jq -r '(.[] | select(.context == "${{ matrix.images.context }}") | .tag) |= "${{ matrix.images.tag }}"' $BUILDER_CONFIG_FILE > $BUILDER_CONFIG_FILE
       - name: Replace release arg
         run: |
           sed -i 's/RELEASE="${{ matrix.images.old_tag }}"/RELEASE="${{ matrix.images.tag }}"/g' ${{ matrix.images.context }}/${{ matrix.images.dockerfile }}
@@ -54,4 +54,4 @@ jobs:
           body: This PR is auto-generated.
           base: master
           branch: bump-${{ matrix.images.context }}-to-${{ matrix.images.tag }}
-          team-reviewers: pokt-foundation/devops
+          team-reviewers: '@pokt-foundation/devops'
