@@ -1,6 +1,6 @@
 FROM debian:bullseye-slim
 
-ARG BSC_RELEASE="v1.1.16"
+ARG RELEASE="v1.1.16"
 
 WORKDIR /root
 
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # grabs the latest release of BSC from Github
-RUN wget https://github.com/bnb-chain/bsc/releases/download/${BSC_RELEASE}/geth_linux \
+RUN wget https://github.com/bnb-chain/bsc/releases/download/${RELEASE}/geth_linux \
     && mv geth_linux /usr/local/bin/geth \
     && chmod +x /usr/local/bin/geth
 

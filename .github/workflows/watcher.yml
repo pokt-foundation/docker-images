@@ -2,6 +2,7 @@ name: Watcher
 on:
   schedule:
     - cron:  '0 */12 * * *'
+  workflow_dispatch:
 
 env:
   WATCHER_SCRIPT: watcher.py
@@ -23,6 +24,7 @@ jobs:
       - name: Get all images
         id: get-images
         run: |
+          pip install PyGithub
           IMAGES=$(python $WATCHER_SCRIPT | tr -d '[:space:]')
           echo "::set-output name=images::$IMAGES"
 
@@ -39,16 +41,17 @@ jobs:
         uses: actions/checkout@v3
       - name: Commit file into new branches
         run: |
-          git checkout -b "bump-${{ matrix.images.context }}-to-${{ matrix.images.new_tag }}"
-          echo "${{ matrix.images.new_tag }}" > ${{ matrix.images.context }}/current
+          git checkout -b "bump-${{ matrix.images.context }}-to-${{ matrix.images.tag }}"
+          sed -i 's/RELEASE="${{ matrix.images.old_tag }}"/RELEASE="${{ matrix.images.tag }}"/g' ${{ matrix.images.context }}/${{ matrix.images.dockerfile }}
           git add .
-          git commit -m "Bump ${{ matrix.images.context }} to ${{ matrix.images.new_tag }}"
-          git push --set-upstream origin bump-${{ matrix.images.context }}-to-${{ matrix.images.new_tag }}
+          git commit -m "Bump ${{ matrix.images.context }} to ${{ matrix.images.tag }}"
+          git push --set-upstream origin bump-${{ matrix.images.context }}-to-${{ matrix.images.tag }}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: 'Bump ${{ matrix.images.context }} to ${{ matrix.images.new_tag }}'
+          title: 'Bump ${{ matrix.images.context }} to ${{ matrix.images.tag }}'
           body: This PR is auto-generated.
-          branch: bump-${{ matrix.images.context }}-to-${{ matrix.images.new_tag }}
+          branch: bump-${{ matrix.images.context }}-to-${{ matrix.images.tag }}
+          team-reviewers: pokt-foundation/devops
           delete-branch: true
