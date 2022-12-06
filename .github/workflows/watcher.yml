@@ -42,6 +42,8 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
       - name: Commit file into new branches
         run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'gha@pokt.network'
           git checkout -b "bump-${{ matrix.images.context }}-to-${{ matrix.images.tag }}"
           sed -i 's/RELEASE="${{ matrix.images.old_tag }}"/RELEASE="${{ matrix.images.tag }}"/g' ${{ matrix.images.context }}/${{ matrix.images.dockerfile }}
           git add .
