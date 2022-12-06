@@ -54,4 +54,4 @@ jobs:
           body: This PR is auto-generated.
           base: master
           branch: bump-${{ matrix.images.context }}-to-${{ matrix.images.tag }}
-          team-reviewers: '@pokt-foundation/devops'
+          team-reviewers: DevOps
