@@ -11,7 +11,7 @@
     "image": "pocketfoundation/bsc",
     "context": "bsc",
     "dockerfile": "Dockerfile",
-    "tag": "v1.1.16",
+    "tag": "v1.1.18_hf",
     "autobuild": true,
     "watch_repo": "bnb-chain/bsc"
   },
@@ -51,7 +51,7 @@
     "image": "pocketfoundation/heimdall",
     "context": "heimdall",
     "dockerfile": "Dockerfile",
-    "tag": "v0.2.12",
+    "tag": "v0.3.0",
     "autobuild": true,
     "watch_repo": "maticnetwork/heimdall"
   },
