@@ -11,7 +11,7 @@
     "image": "pocketfoundation/bsc",
     "context": "bsc",
     "dockerfile": "Dockerfile",
-    "tag": "v1.1.16",
+    "tag": "v1.1.18_hf",
     "autobuild": true,
     "watch_repo": "bnb-chain/bsc"
   },
