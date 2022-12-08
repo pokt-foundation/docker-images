@@ -59,7 +59,7 @@
     "image": "pocketfoundation/sui",
     "context": "sui",
     "dockerfile": "Dockerfile",
-    "tag": "devnet-0.17.0",
+    "tag": "devnet-0.18.0",
     "autobuild": true,
     "watch_repo": "MystenLabs/sui"
   }
