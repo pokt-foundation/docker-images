@@ -2,7 +2,6 @@ FROM golang:1.18.5-bullseye AS build-env
 
 ARG EVMOS_REPO="https://github.com/evmos/evmos.git"
 ARG RELEASE="v9.1.0"
-
 ARG EMVOS_GENESIS_JSON="https://archive.evmos.org/mainnet/genesis.json"
 
 WORKDIR /go/src/github.com/evmos/evmos
