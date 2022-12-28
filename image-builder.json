@@ -62,5 +62,13 @@
     "tag": "devnet-0.19.0",
     "autobuild": true,
     "watch_repo": "MystenLabs/sui"
+  },
+  {
+    "image": "pocketfoundation/fusenet",
+    "context": "fusenet",
+    "dockerfile": "Dockerfile",
+    "tag": "master",
+    "autobuild": true,
+    "watch_repo": "fusenet/node"
   }
 ]
