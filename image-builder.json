@@ -19,7 +19,7 @@
     "image": "pocketfoundation/evmos",
     "context": "evmos",
     "dockerfile": "Dockerfile",
-    "tag": "v9.1.0",
+    "tag": "v10.0.0",
     "autobuild": true,
     "watch_repo": "tharsis/evmos"
   },
