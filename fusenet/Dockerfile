@@ -13,7 +13,9 @@ RUN dotnet publish src/Nethermind/Nethermind.Runner -r linux-x64 -c release -o o
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-jammy
 
-RUN apt-get update && apt-get -y install libsnappy-dev libc6-dev libc6
+RUN apt-get update && \
+    apt-get dist-upgrade -y && \
+    apt-get -y install libsnappy-dev libc6-dev libc6
 
 RUN ln -s /usr/lib/x86_64-linux-gnu/libdl.so.2 /usr/lib/x86_64-linux-gnu/libdl.so > /dev/null 2>&1
 
