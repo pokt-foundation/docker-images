@@ -11,6 +11,9 @@ RUN git clone --depth 1 -b ${RELEASE} ${EVMOS_REPO} .
 
 RUN make build
 
+#==============================================================
+FROM debian:bullseye-slim as execution
+
 ENV DEBIAN_FRONTEND=noninteractive \
     USERNAME=appuser \
     APP_PATH=/data
