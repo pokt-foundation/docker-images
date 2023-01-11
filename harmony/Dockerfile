@@ -1,6 +1,6 @@
 FROM alpine:3.15
 
-ARG RELEASE="v4.3.13"
+ARG RELEASE="v4.3.14"
 
 RUN apk add --no-cache bash curl libstdc++ gmp-dev libc6-compat bind-tools jq && ln -s libcrypto.so.1.1 /lib/libcrypto.so.10
 
