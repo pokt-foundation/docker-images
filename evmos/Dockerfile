@@ -38,9 +38,6 @@ COPY ./config.toml /root/.evmosd/config/config.toml
 COPY ./entrypoint.sh /root/entrypoint.sh
 RUN chmod +x /root/entrypoint.sh
 
-VOLUME ${APP_PATH}
-WORKDIR ${APP_PATH}
-USER ${USERNAME}
 EXPOSE 26656 26657 1317 9090 8545 8546
 
 CMD ["evmosd"]
