@@ -56,6 +56,14 @@
     "watch_repo": "maticnetwork/erigon"
   },
   {
+    "image": "pocketfoundation/bor",
+    "context": "erigon-bor",
+    "dockerfile": "Dockerfile",
+    "tag": "v0.3.3",
+    "autobuild": true,
+    "watch_repo": "maticnetwork/bor"
+  },
+  {
     "image": "pocketfoundation/heimdall",
     "context": "heimdall",
     "dockerfile": "Dockerfile",
