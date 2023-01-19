@@ -57,7 +57,7 @@
   },
   {
     "image": "pocketfoundation/bor",
-    "context": "erigon-bor",
+    "context": "bor",
     "dockerfile": "Dockerfile",
     "tag": "v0.3.3",
     "autobuild": true,
@@ -80,5 +80,3 @@
     "watch_repo": "MystenLabs/sui"
   }
 ]
-
-
