@@ -43,7 +43,7 @@
     "image": "pocketfoundation/erigon",
     "context": "erigon",
     "dockerfile": "Dockerfile",
-    "tag": "v2.35.2",
+    "tag": "v2.36.0",
     "autobuild": true,
     "watch_repo": "ledgerwatch/erigon"
   },
