@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  velas:
+    container_name: velas
+    build: .
+    mem_limit: "128G"
+    command: "--log - --ledger /root/validator-ledger --no-voting --no-port-check --rpc-port 8899 --rpc-bind-address 0.0.0.0 --full-rpc-api --entrypoint bootstrap.velas.com:8001 --limit-ledger-size"
+    ports:
+      - "8899:8899"
+    volumes:
+      - "/data-velas:/root/validator-ledger"
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
