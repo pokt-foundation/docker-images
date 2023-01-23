@@ -72,14 +72,6 @@
     "watch_repo": "maticnetwork/heimdall"
   },
   {
-    "image": "pocketfoundation/sui",
-    "context": "sui",
-    "dockerfile": "Dockerfile",
-    "tag": "devnet-0.22.0",
-    "autobuild": true,
-    "watch_repo": "MystenLabs/sui"
-  },
-  {
     "image": "pocketfoundation/velas",
     "context": "velas",
     "dockerfile": "Dockerfile",
