@@ -70,13 +70,5 @@
     "tag": "v0.3.0",
     "autobuild": true,
     "watch_repo": "maticnetwork/heimdall"
-  },
-  {
-    "image": "pocketfoundation/sui",
-    "context": "sui",
-    "dockerfile": "Dockerfile",
-    "tag": "devnet-0.21.0",
-    "autobuild": true,
-    "watch_repo": "MystenLabs/sui"
   }
 ]
