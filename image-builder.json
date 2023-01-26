@@ -27,7 +27,7 @@
     "image": "pocketfoundation/harmony",
     "context": "harmony",
     "dockerfile": "Dockerfile",
-    "tag": "v4.3.13",
+    "tag": "v2023.1.0",
     "autobuild": true,
     "watch_repo": "harmony-one/harmony"
   },
