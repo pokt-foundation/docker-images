@@ -1,4 +1,0 @@
-flask
-prometheus_client
-requests
-gunicorn[gthread]
