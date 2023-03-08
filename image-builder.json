@@ -78,13 +78,5 @@
     "tag": "v0.6.3",
     "autobuild": true,
     "watch_repo": "velas/velas-chain"
-  },
-  {
-    "image": "pocketfoundation/oasys",
-    "context": "oasys",
-    "dockerfile": "Dockerfile",
-    "tag": "v1.0.3",
-    "autobuild": true,
-    "watch_repo": "oasysgames/oasys-validator"
   }
 ]
