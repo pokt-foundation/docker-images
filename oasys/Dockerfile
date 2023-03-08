@@ -12,18 +12,18 @@ RUN useradd -s /sbin/nologin geth \
     && chmod 700 /data
 
 
-RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/geth-v1.0.4-linux-amd64.zip 
-    # && unzip geth-v1.0.4-linux-amd64.zip \
-    # && rm geth-v1.0.4-linux-amd64.zip \
-    # && mv geth /usr/local/bin/ \
-    # && chmod +x /usr/local/bin/geth 
+RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/geth-v1.0.4-linux-amd64.zip \
+    && unzip geth-v1.0.4-linux-amd64.zip \
+    && rm geth-v1.0.4-linux-amd64.zip \
+    && mv geth /usr/local/bin/ \
+    && chmod +x /usr/local/bin/geth 
 
 
-RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/genesis.zip 
-    # && unzip genesis.zip  \
-    # && rm genesis.zip \
-    # && mv genesis/mainnet.json /data/genesis.json \
-    # && rm -r genesis
+RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/genesis.zip \
+    && unzip genesis.zip  \
+    && rm genesis.zip \
+    && mv genesis/mainnet.json /data/genesis.json \
+    && rm -r genesis
 
 
 EXPOSE 30301 30301/udp 8545
