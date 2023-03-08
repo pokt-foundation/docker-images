@@ -20,7 +20,7 @@ RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEA
 
 
 RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/genesis.zip \
-    && unzip genesis.zip  \
+    # && unzip genesis.zip  \
     && rm genesis.zip \
     && mv genesis/mainnet.json /data/genesis.json \
     && rm -r genesis
