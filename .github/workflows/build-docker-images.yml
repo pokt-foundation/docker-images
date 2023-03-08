@@ -31,7 +31,7 @@ jobs:
       - name: Get all images
         id: get-images
         run: |
-          echo "Changed files: $(git diff --name-only HEAD HEAD~2)"
+          echo "Changed files: $(git diff --name-only HEAD HEAD~4)"
           IMAGES=$(git diff --name-only HEAD HEAD~1 | python $BUILDER_SCRIPT | tr -d '[:space:]')
           echo "images=$IMAGES" >> $GITHUB_OUTPUT
 
