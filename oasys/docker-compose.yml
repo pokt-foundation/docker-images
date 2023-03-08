@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  oasys:
+    container_name: oasys
+    build: .
+    cpus: 4
+    mem_limit: "16GB"
+    # command: "geth init /data/genesis.json"
+    command: "geth \
+              --networkid 248 \
+              --datadir /data/geth/.ethereum \
+              --http \
+              --http.addr=0.0.0.0 \
+              --http.vhosts=* \
+              --http.api=eth,net,web3,debug,admin,personal \
+              --maxpeers=1100 \
+              --syncmode full \ 
+              --gcmode archive \
+              --bootnodes 'enode://1e68361cb0e761e0789c014acdbd2491f30176acf25480408382916632e58af1711d857c75be5917319d06049937e49c09ca51a28590e6ee22aceca1161fd583@3.113.207.39:30301,enode://24a55fd923d780213d15f5551bcbb7171343ef095512927d91baca3e7917124c679f894282eefec37350088b31c45a49bb28df790eb88f487ad60a9b6ccc8f3b@35.238.159.190:30301'"
+    ports:
+      - "8545:8545"
+      - "30301:30301"
+      - "30301:30301/udp"
+    volumes:
+      - "/data-oasys:/data/geth/.ethereum"
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
