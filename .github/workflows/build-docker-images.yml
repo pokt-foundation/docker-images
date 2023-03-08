@@ -31,8 +31,8 @@ jobs:
       - name: Get all images
         id: get-images
         run: |
-          echo "Changed files: $(git diff --name-only HEAD HEAD~4)"
-          IMAGES=$(git diff --name-only HEAD HEAD~6 | python $BUILDER_SCRIPT | tr -d '[:space:]')
+          echo "Changed files: $(git diff --name-only HEAD HEAD~1)"
+          IMAGES=$(git diff --name-only 8e69e3dfff11daea6bfd86a9d1c441b8b2f55085 a36799f8f7056c49921e0df916e6e9f95b73cd55 | python $BUILDER_SCRIPT | tr -d '[:space:]')
           echo "images=$IMAGES" >> $GITHUB_OUTPUT
 
   build-docker:
