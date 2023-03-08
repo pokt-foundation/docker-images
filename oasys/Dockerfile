@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-ARG RELEASE="v1.0.3"
+ARG RELEASE="v1.0.4"
 
 RUN apt update  \
     && apt install -y --no-install-recommends unzip wget ca-certificates 
