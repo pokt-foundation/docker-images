@@ -59,7 +59,7 @@
     "image": "pocketfoundation/bor",
     "context": "bor",
     "dockerfile": "Dockerfile",
-    "tag": "v0.3.3",
+    "tag": "v0.3.4",
     "autobuild": true,
     "watch_repo": "maticnetwork/bor"
   },
