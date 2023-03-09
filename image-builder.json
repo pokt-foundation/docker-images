@@ -80,7 +80,7 @@
     "watch_repo": "velas/velas-chain"
   },
   {
-    "image": "eepokt/oasys",
+    "image": "pocketfoundation/oasys",
     "context": "oasys",
     "dockerfile": "Dockerfile",
     "tag": "v1.0.4",
