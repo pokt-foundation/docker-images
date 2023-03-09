@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-ARG RELEASE="v1.1.18_hf"
+ARG RELEASE="v1.1.19"
 
 WORKDIR /root
 
