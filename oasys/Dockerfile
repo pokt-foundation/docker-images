@@ -14,17 +14,16 @@ RUN apt update && \
     apt install -y --no-install-recommends \
         unzip \
         wget \
-        curl \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-RUN curl -LO https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/geth-${RELEASE}-linux-amd64.zip \
+RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/geth-${RELEASE}-linux-amd64.zip \
     && unzip geth-${RELEASE}-linux-amd64.zip \
     && rm geth-${RELEASE}-linux-amd64.zip \
     && mv geth /usr/local/bin/ \
     && chmod +x /usr/local/bin/geth
 
-RUN curl -LO https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/genesis.zip \
+RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/genesis.zip \
     && unzip genesis.zip  \
     && rm genesis.zip \
     && mv genesis/mainnet.json /genesis.json \
