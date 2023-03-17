@@ -86,5 +86,13 @@
     "tag": "v1.0.4",
     "autobuild": true,
     "watch_repo": "oasysgames/oasys-validator"
+  },
+  {
+    "image": "pocketfoundation/kava",
+    "context": "kava",
+    "dockerfile": "Dockerfile",
+    "tag": "v0.21.0",
+    "autobuild": true,
+    "watch_repo": "Kava-Labs/kava"
   }
 ]
