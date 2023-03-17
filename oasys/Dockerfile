@@ -2,30 +2,36 @@ FROM debian:bullseye
 
 ARG RELEASE="v1.0.5"
 
-RUN apt update  \
-    && apt install -y --no-install-recommends unzip wget ca-certificates 
-    
-WORKDIR /data
+ENV USERNAME=appuser \
+    APP_PATH=/data
+ENV DEBIAN_FRONTEND=noninteractive
 
-RUN useradd -s /sbin/nologin geth \
-    && chown geth:geth /data \
-    && chmod 700 /data
+RUN groupadd -g 1001 ${USERNAME} \
+    && useradd -m -d ${APP_PATH} -u 1001 -g 1001 ${USERNAME}
 
+RUN apt update && \
+    apt -y dist-upgrade && \
+    apt install -y --no-install-recommends \
+        unzip \
+        wget \
+        curl \
+        ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/geth-v1.0.4-linux-amd64.zip \
-    && unzip geth-v1.0.4-linux-amd64.zip \
-    && rm geth-v1.0.4-linux-amd64.zip \
+RUN curl -LO https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/geth-${RELEASE}-linux-amd64.zip \
+    && unzip geth-${RELEASE}-linux-amd64.zip \
+    && rm geth-${RELEASE}-linux-amd64.zip \
     && mv geth /usr/local/bin/ \
-    && chmod +x /usr/local/bin/geth 
+    && chmod +x /usr/local/bin/geth
 
-
-RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/genesis.zip \
+RUN curl -LO https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/genesis.zip \
     && unzip genesis.zip  \
     && rm genesis.zip \
-    && mv genesis/mainnet.json /data/genesis.json \
+    && mv genesis/mainnet.json /genesis.json \
     && rm -r genesis
-
 
 EXPOSE 30301 30301/udp 8545
 
-CMD ["-u geth geth"] 
+USER ${USERNAME}
+WORKDIR /data
+ENTRYPOINT ["geth"]
