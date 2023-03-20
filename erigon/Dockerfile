@@ -49,4 +49,4 @@ VOLUME ${APP_PATH}
 WORKDIR ${APP_PATH}
 USER ${USERNAME}
 
-CMD ["erigon"]
+ENTRYPOINT ["erigon"]

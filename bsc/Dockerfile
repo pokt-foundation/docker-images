@@ -1,20 +1,32 @@
-FROM debian:bullseye
+FROM debian:bullseye-slim
 
-ARG RELEASE="v1.1.18_hf"
+ARG GIT_URL="https://github.com/bnb-chain/bsc"
+ARG RELEASE="v1.1.20"
 
-WORKDIR /root
+ENV DEBIAN_FRONTEND=noninteractive \
+    USERNAME=appuser \
+    APP_PATH=/data
 
-RUN apt-get update && apt-get install -y wget \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt update && \
+    apt -y dist-upgrade && \
+    apt install -y --no-install-recommends \
+        tzdata \
+        unzip \
+        ca-certificates && \
+    rm -rf /var/cache/apt/*
 
-# grabs the latest release of BSC from Github
-RUN wget https://github.com/bnb-chain/bsc/releases/download/${RELEASE}/geth_linux \
-    && mv geth_linux /usr/local/bin/geth \
-    && chmod +x /usr/local/bin/geth
+ADD --chmod=0755 ${GIT_URL}/releases/download/${RELEASE}/geth_linux /usr/local/bin/geth
+ADD --chmod=0755 ${GIT_URL}/releases/download/${RELEASE}/mainnet.zip /home
+RUN unzip /home/mainnet.zip -d /home && \
+    rm /home/mainnet.zip
 
-COPY ./genesis.json /root/genesis.json
-COPY ./config.toml /root/config.toml
+RUN groupadd -g 1001 ${USERNAME} \
+    && useradd -m -d ${APP_PATH} -u 1001 -g 1001 ${USERNAME}
 
-EXPOSE 30303 30303/udp 8545
+EXPOSE 8545 8550 8551 8546 30303 30303/udp 30304 30304/udp 8080 9090 6060
+VOLUME ${APP_PATH}
 
-CMD geth --config /root/config.toml --datadir /root/.ethereum --diffsync --cache 8000 --rpc.allow-unprotected-txs --txlookuplimit 0
+WORKDIR ${APP_PATH}
+USER ${USERNAME}
+
+ENTRYPOINT ["geth"]
