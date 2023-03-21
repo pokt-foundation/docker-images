@@ -67,7 +67,7 @@
     "image": "pocketfoundation/heimdall",
     "context": "heimdall",
     "dockerfile": "Dockerfile",
-    "tag": "v0.3.0",
+    "tag": "v0.3.2",
     "autobuild": true,
     "watch_repo": "maticnetwork/heimdall"
   },
