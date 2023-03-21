@@ -2,7 +2,7 @@ FROM --platform=linux/amd64 golang:bullseye AS builder
 
 ARG GIT_URL="https://github.com/maticnetwork/erigon.git"
 # AUTO_UPDATE_GIT_COMMIT - next line will be overwritten by build.sh to the latest found releas
-ARG RELEASE="v0.0.5"
+ARG RELEASE="v0.0.6"
 
 #build-base linux-headers git bash ca-certificates libstdc++
 RUN apt update && \
