@@ -1,7 +1,7 @@
 FROM golang:1.19-alpine3.16 AS builder
 
 ARG GIT_URL="https://github.com/maticnetwork/heimdall.git"
-ARG RELEASE="v0.3.0"
+ARG RELEASE="v0.3.2"
 
 RUN apk add --no-cache make gcc musl-dev linux-headers git
 
