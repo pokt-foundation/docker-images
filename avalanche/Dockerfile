@@ -1,8 +1,8 @@
 ARG AVALANCHE_REPO="https://github.com/ava-labs/avalanchego.git"
-ARG AVALANCHE_RELEASE="v1.9.2"
+ARG AVALANCHE_RELEASE="v1.9.14"
 
 ARG AVALANCHE_SUBNETS_REPO="https://github.com/ava-labs/subnet-evm"
-ARG AVALANCHE_SUBNETS_RELEASE="v0.4.3"
+ARG AVALANCHE_SUBNETS_RELEASE="v0.4.12"
 
 ARG AVALANCHE_CHAIN_ASSETS_REPO="https://github.com/ava-labs/public-chain-assets"
 
@@ -14,7 +14,7 @@ ARG SWIMMER_ETH_CHAIN_ID="73772"
 ARG SWIMMER_VM_ID="srSGD5JeYhL8GLx4RUw53VN5TcoBbax6EeCYmy5S3DiteJhdF"
 ARG SWIMMER_BLOCKCHAIN_ID="2K33xS9AyP9oCDiHYKVrHe7F54h2La5D8erpTChaAhdzeSu2RX"
 
-FROM golang:1.18.5-bullseye AS builder
+FROM golang:1.19-bullseye AS builder
 
 ARG AVALANCHE_REPO
 ARG AVALANCHE_RELEASE
@@ -37,8 +37,6 @@ RUN git clone --depth 1 -b ${AVALANCHE_RELEASE} ${AVALANCHE_REPO} .
 
 RUN go mod download
 
-RUN ./scripts/build.sh
-
 # Build subnets
 WORKDIR /subnet-evm
 
@@ -60,17 +58,33 @@ ARG DFK_BLOCKCHAIN_ID
 ARG SWIMMER_ETH_CHAIN_ID
 ARG SWIMMER_BLOCKCHAIN_ID
 
-WORKDIR /avalanchego/build
+ENV DEBIAN_FRONTEND=noninteractive \
+    USERNAME=appuser \
+    APP_PATH=/data
 
-COPY --from=builder /avalanchego/build/ .
+RUN apt update && \
+    apt -y dist-upgrade && \
+    apt install -y --no-install-recommends \
+        tzdata \
+        ca-certificates && \
+    rm -rf /var/cache/apt/*
+
+RUN groupadd -g 1001 ${USERNAME} \
+    && useradd -m -d ${APP_PATH} -u 1001 -g 1001 ${USERNAME}
+
+COPY --from=builder /avalanchego/build/* /usr/local/bin/
 
 # Copy upgrade.json
 COPY --from=builder /public-chain-assets/chains/${DFK_ETH_CHAIN_ID}/upgrade.json /home/${DFK_BLOCKCHAIN_ID}/upgrade.json
 COPY --from=builder /public-chain-assets/chains/${SWIMMER_ETH_CHAIN_ID}/upgrade.json /home/${SWIMMER_BLOCKCHAIN_ID}/upgrade.json
 
 COPY ./config.json /home/config.json
-
 COPY ./dfk_config.json /home/${DFK_BLOCKCHAIN_ID}/config.json
 COPY ./cb_config.json /home/${SWIMMER_BLOCKCHAIN_ID}/config.json
 
-ENTRYPOINT ["./avalanchego"]
+VOLUME ${APP_PATH}
+
+WORKDIR ${APP_PATH}
+USER ${USERNAME}
+
+ENTRYPOINT ["avalanchego"]
