@@ -18,7 +18,18 @@ RUN apt update && \
 ADD --chmod=0755 ${GIT_URL}/releases/download/${RELEASE}/geth_linux /usr/local/bin/geth
 ADD --chmod=0755 ${GIT_URL}/releases/download/${RELEASE}/mainnet.zip /home
 RUN unzip /home/mainnet.zip -d /home && \
-    rm /home/mainnet.zip
+    rm /home/mainnet.zip && \
+# Remove Node.LogConfig block to print logs to stdout
+    cat /home/config.toml | \
+      grep -v "\[Node.LogConfig\]" | \
+      grep -v "FilePath[[:space:]]*=" | \
+      grep -v "MaxBytesSize[[:space:]]*=" | \
+      grep -v "Level[[:space:]]*=" | \
+      grep -v "FileRoot[[:space:]]*=" > \
+    /tmp/config_tmp.toml && \
+    mv -f /tmp/config_tmp.toml /home/config.toml
+
+
 
 RUN groupadd -g 1001 ${USERNAME} \
     && useradd -m -d ${APP_PATH} -u 1001 -g 1001 ${USERNAME}
