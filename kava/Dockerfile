@@ -3,7 +3,7 @@ FROM --platform=linux/amd64 debian:bookworm-slim
 
 ARG GIT_URL="https://github.com/Kava-Labs/kava"
 # AUTO_UPDATE_GIT_COMMIT - next line will be overwritten by build.sh to the latest found releas
-ARG RELEASE="v0.21.0"
+ARG RELEASE="v0.21.1"
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV USERNAME=appuser \
