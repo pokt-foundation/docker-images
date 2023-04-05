@@ -94,5 +94,13 @@
     "tag": "v0.21.1",
     "autobuild": true,
     "watch_repo": "Kava-Labs/kava"
+  }, 
+  {
+    "image": "pocketfoundation/zkevm-node",
+    "context": "polygon-zkevm",
+    "dockerfile": "Dockerfile",
+    "tag": "v0.0.3-RC36",
+    "autobuild": true,
+    "watch_repo": "0xPolygonHermez/zkevm-node"
   }
 ]
