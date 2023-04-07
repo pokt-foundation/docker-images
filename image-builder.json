@@ -43,7 +43,7 @@
     "image": "pocketfoundation/erigon",
     "context": "erigon",
     "dockerfile": "Dockerfile",
-    "tag": "v2.40.1",
+    "tag": "v2.42.0",
     "autobuild": true,
     "watch_repo": "ledgerwatch/erigon"
   },
@@ -94,7 +94,7 @@
     "tag": "v0.21.1",
     "autobuild": true,
     "watch_repo": "Kava-Labs/kava"
-  }, 
+  },
   {
     "image": "pocketfoundation/zkevm-node",
     "context": "polygon-zkevm",
