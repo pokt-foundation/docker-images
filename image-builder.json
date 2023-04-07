@@ -3,7 +3,7 @@
     "image": "pocketfoundation/avalanchego",
     "context": "avalanche",
     "dockerfile": "Dockerfile",
-    "tag": "v1.9.14",
+    "tag": "v1.9.16",
     "autobuild": false,
     "watch_repo": "ava-labs/avalanchego"
   },
