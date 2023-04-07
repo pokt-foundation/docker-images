@@ -1,5 +1,5 @@
 ARG AVALANCHE_REPO="https://github.com/ava-labs/avalanchego.git"
-ARG AVALANCHE_RELEASE="v1.9.14"
+ARG AVALANCHE_RELEASE="v1.9.16"
 
 ARG AVALANCHE_SUBNETS_REPO="https://github.com/ava-labs/subnet-evm"
 ARG AVALANCHE_SUBNETS_RELEASE="v0.4.12"
