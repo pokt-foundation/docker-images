@@ -83,7 +83,7 @@
     "image": "pocketfoundation/oasys",
     "context": "oasys",
     "dockerfile": "Dockerfile",
-    "tag": "v1.0.5",
+    "tag": "v1.0.6",
     "autobuild": true,
     "watch_repo": "oasysgames/oasys-validator"
   },
@@ -94,7 +94,7 @@
     "tag": "v0.21.1",
     "autobuild": true,
     "watch_repo": "Kava-Labs/kava"
-  }, 
+  },
   {
     "image": "pocketfoundation/zkevm-node",
     "context": "polygon-zkevm",
