@@ -62,5 +62,13 @@
     "tag": "v0.0.3-RC36",
     "autobuild": true,
     "watch_repo": "0xPolygonHermez/zkevm-node"
+  },
+  {
+    "image": "pocketfoundation/sui",
+    "context": "sui",
+    "dockerfile": "Dockerfile",
+    "tag": "devnet-0.32.0",
+    "autobuild": true,
+    "watch_repo": "MystenLabs/sui"
   }
 ]
