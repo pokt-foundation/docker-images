@@ -56,4 +56,4 @@ jobs:
           body: This PR is auto-generated.
           base: master
           branch: bump-${{ matrix.images.context }}-to-${{ matrix.images.tag }}
-          reviewers: paulohpigatto,rdvencioneck,vlad-she,TakGN
+          reviewers: rdvencioneck,vlad-she,TakGN
