@@ -1,7 +1,7 @@
 FROM debian:bullseye-slim
 
 ARG GIT_URL="https://github.com/bnb-chain/bsc"
-ARG RELEASE="v1.1.22"
+ARG RELEASE="v1.2.1"
 
 ENV DEBIAN_FRONTEND=noninteractive \
     USERNAME=appuser \

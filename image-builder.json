@@ -3,7 +3,7 @@
     "image": "pocketfoundation/avalanchego",
     "context": "avalanche",
     "dockerfile": "Dockerfile",
-    "tag": "v1.9.16",
+    "tag": "v1.10.0",
     "autobuild": false,
     "watch_repo": "ava-labs/avalanchego"
   },
@@ -11,7 +11,7 @@
     "image": "pocketfoundation/bsc",
     "context": "bsc",
     "dockerfile": "Dockerfile",
-    "tag": "v1.1.22",
+    "tag": "v1.2.1",
     "autobuild": true,
     "watch_repo": "bnb-chain/bsc"
   },
