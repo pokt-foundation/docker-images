@@ -35,7 +35,7 @@ WORKDIR /avalanchego
 
 RUN git clone --depth 1 -b ${AVALANCHE_RELEASE} ${AVALANCHE_REPO} .
 
-RUN go mod download
+RUN scripts/build.sh
 
 # Build subnets
 WORKDIR /subnet-evm
