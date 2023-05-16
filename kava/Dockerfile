@@ -35,28 +35,14 @@ RUN git clone $KAVA_GIT_URL && \
     git checkout v0.23.0 && \
     make install COSMOS_BUILD_OPTIONS=rocksdb
 
-#================================================================
-FROM --platform=linux/amd64 debian:bookworm-slim AS execution
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV USERNAME=appuser \
     APP_PATH=/data
 
-RUN apt update && \
-    apt -y dist-upgrade && \
-    apt install -y --no-install-recommends \
-        tzdata \
-        libjemalloc-dev \
-        curl \
-        ca-certificates && \
-    rm -rf /var/lib/apt/lists/*
-
-COPY --from=builder /go/bin/kava /usr/local/bin/kava
-COPY --from=builder /go/rocksdb/librocksdb.so.7.9.2 /lib/librocksdb.so.7.9.2
-
 RUN groupadd -g 1001 ${USERNAME} \
     && useradd -m -d ${APP_PATH} -u 1001 -g 1001 ${USERNAME} \
-    && chmod 0755 /usr/local/bin/kava \
+    && chmod 0755 /go/bin/kava \
     && ldconfig
 
 EXPOSE 8545 30303 30303/udp
