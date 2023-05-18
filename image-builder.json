@@ -51,7 +51,7 @@
     "image": "pocketfoundation/kava",
     "context": "kava",
     "dockerfile": "Dockerfile",
-    "tag": "v0.21.1",
+    "tag": "v0.23.0",
     "autobuild": true,
     "watch_repo": "Kava-Labs/kava"
   },

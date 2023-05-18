@@ -1,31 +1,51 @@
-FROM --platform=linux/amd64 debian:bookworm-slim
-# Requires GLIBC_2.32+ so use bookworm
+FROM --platform=linux/amd64 ubuntu:22.04
 
-ARG GIT_URL="https://github.com/Kava-Labs/kava"
-# AUTO_UPDATE_GIT_COMMIT - next line will be overwritten by build.sh to the latest found releas
-ARG RELEASE="v0.21.1"
-
-ENV DEBIAN_FRONTEND=noninteractive
-ENV USERNAME=appuser \
-    APP_PATH=/data
+ARG KAVA_GIT_URL="https://github.com/kava-labs/kava.git"
+ARG KAVA_RELEASE="v0.23.0"
+ARG ROCKSDB_GIT_URL="https://github.com/facebook/rocksdb.git"
+ARG ROCKSDB_RELEASE="v7.9.2"
 
 RUN apt update && \
     apt -y dist-upgrade && \
-    apt install -y --no-install-recommends \
+    DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
+        build-essential \
+        jq \
         tzdata \
+        liblz4-dev \
+        libgflags-dev \
+        libzstd-dev \
         libjemalloc-dev \
+        libsnappy-dev \
+        zlib1g-dev \
+        libbz2-dev \
         curl \
+        wget \
+        git \
+        make \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-ADD --chmod=0755 ${GIT_URL}/releases/download/${RELEASE}/kava-${RELEASE}-linux-amd64 /usr/local/bin/kava
+RUN git clone $ROCKSDB_GIT_URL
 
-RUN groupadd -g 1001 ${USERNAME} \
-    && useradd -m -d ${APP_PATH} -u 1001 -g 1001 ${USERNAME}
+RUN cd rocksdb && \
+    git checkout $ROCKSDB_RELEASE && \
+    make -j $(nproc --all) install-shared && \
+    ldconfig
 
-# EXPOSE 8545 8550 8551 8546 30303 30303/udp 30304 30304/udp 8080 9090 6060
+RUN wget https://go.dev/dl/go1.20.4.linux-amd64.tar.gz \
+    && tar -C /usr/local -xzf go1.20.4.linux-amd64.tar.gz \
+    && rm go1.20.4.linux-amd64.tar.gz
 
-WORKDIR ${APP_PATH}
-USER ${USERNAME}
+ENV GOPATH=/go \
+    PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
+
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+
+RUN git clone $KAVA_GIT_URL && \
+    cd kava && \
+    git checkout $KAVA_RELEASE && \
+    make install COSMOS_BUILD_OPTIONS=rocksdb
+
+RUN mv /go/bin/kava /bin/kava && ldconfig
 
 ENTRYPOINT ["kava"]
