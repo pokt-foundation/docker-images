@@ -3,7 +3,7 @@ version: "3.8"
 services:
   oasys:
     container_name: oasys
-    build: .
+    image: pocketfoundation/oasys:v1.0.4
     cpus: 4
     mem_limit: "16GB"
     # command: "geth init /data/genesis.json"
@@ -13,7 +13,7 @@ services:
               --http \
               --http.addr=0.0.0.0 \
               --http.vhosts=* \
-              --http.api=eth,net,web3,debug,admin,personal \
+              --http.api=eth,debug,net,trace,web3,admin,personal \
               --maxpeers=1100 \
               --syncmode full \ 
               --gcmode archive \

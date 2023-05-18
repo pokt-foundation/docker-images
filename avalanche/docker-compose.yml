@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   avax_subnets:
-    container_name: avax_subnets
+    container_name: pocketfoundation/avalanchego:v1.9.16
     build: .
     restart: unless-stopped
     ports:

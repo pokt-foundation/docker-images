@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  kava:
+    container_name: kava
+    image: testkaverelease:latest
+    cpus: 4
+    mem_limit: "16GB"
+    command: "start \
+              --home=/data
+              --pruning=nothing \ 
+              --json-rpc.address=0.0.0.0:8545 \
+              --grpc.enable=false \
+              --log_level trace"
+    ports:
+      - "8545:8545"
+      - "30303:30303"
+      - "30303:30303/udp"
+    volumes:
+      - "/home/takwa/Desktop/kava-data-dir:/data"
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+

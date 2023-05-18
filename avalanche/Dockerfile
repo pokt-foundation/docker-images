@@ -37,6 +37,8 @@ RUN git clone --depth 1 -b ${AVALANCHE_RELEASE} ${AVALANCHE_REPO} .
 
 RUN scripts/build.sh
 
+RUN ./scripts/build.sh
+
 # Build subnets
 WORKDIR /subnet-evm
 
@@ -58,21 +60,9 @@ ARG DFK_BLOCKCHAIN_ID
 ARG SWIMMER_ETH_CHAIN_ID
 ARG SWIMMER_BLOCKCHAIN_ID
 
-ENV DEBIAN_FRONTEND=noninteractive \
-    USERNAME=appuser \
-    APP_PATH=/data
+WORKDIR /avalanchego/build
 
-RUN apt update && \
-    apt -y dist-upgrade && \
-    apt install -y --no-install-recommends \
-        tzdata \
-        ca-certificates && \
-    rm -rf /var/cache/apt/*
-
-RUN groupadd -g 1001 ${USERNAME} \
-    && useradd -m -d ${APP_PATH} -u 1001 -g 1001 ${USERNAME}
-
-COPY --from=builder /avalanchego/build/* /usr/local/bin/
+COPY --from=builder /avalanchego/build/ .
 
 # Copy upgrade.json
 COPY --from=builder /public-chain-assets/chains/${DFK_ETH_CHAIN_ID}/upgrade.json /home/${DFK_BLOCKCHAIN_ID}/upgrade.json
@@ -81,10 +71,5 @@ COPY --from=builder /public-chain-assets/chains/${SWIMMER_ETH_CHAIN_ID}/upgrade.
 COPY ./config.json /home/config.json
 COPY ./dfk_config.json /home/${DFK_BLOCKCHAIN_ID}/config.json
 COPY ./cb_config.json /home/${SWIMMER_BLOCKCHAIN_ID}/config.json
-
-VOLUME ${APP_PATH}
-
-WORKDIR ${APP_PATH}
-USER ${USERNAME}
 
 ENTRYPOINT ["avalanchego"]
