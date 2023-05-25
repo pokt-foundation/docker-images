@@ -1,8 +1,8 @@
 FROM --platform=linux/amd64 golang:bullseye AS builder
 
 ARG GIT_URL="https://github.com/0xPolygonHermez/zkevm-node.git"
-# AUTO_UPDATE_GIT_COMMIT - next line will be overwritten by build.sh to the latest found releas
-ARG RELEASE="v0.0.7"
+# AUTO_UPDATE_GIT_COMMIT - The following line will be overwritten by build.sh to the latest release found in the GitHub repo in the line above
+ARG RELEASE="v0.0.8"
 
 #build-base linux-headers git bash ca-certificates libstdc++
 RUN apt update && \
