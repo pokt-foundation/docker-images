@@ -59,7 +59,7 @@
     "image": "pocketfoundation/zkevm-node",
     "context": "polygon-zkevm",
     "dockerfile": "Dockerfile",
-    "tag": "v0.0.7",
+    "tag": "v0.0.8",
     "autobuild": true,
     "watch_repo": "0xPolygonHermez/zkevm-node"
   },
