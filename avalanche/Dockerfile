@@ -1,8 +1,8 @@
 ARG AVALANCHE_REPO="https://github.com/ava-labs/avalanchego.git"
-ARG AVALANCHE_RELEASE="v1.10.0"
+ARG AVALANCHE_RELEASE="v1.10.3"
 
 ARG AVALANCHE_SUBNETS_REPO="https://github.com/ava-labs/subnet-evm"
-ARG AVALANCHE_SUBNETS_RELEASE="v0.5.0"
+ARG AVALANCHE_SUBNETS_RELEASE="v0.5.1"
 
 ARG AVALANCHE_CHAIN_ASSETS_REPO="https://github.com/ava-labs/public-chain-assets"
 
