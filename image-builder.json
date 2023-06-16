@@ -43,7 +43,7 @@
     "image": "pocketfoundation/oasys",
     "context": "oasys",
     "dockerfile": "Dockerfile",
-    "tag": "v1.0.6",
+    "tag": "v1.1.0",
     "autobuild": true,
     "watch_repo": "oasysgames/oasys-validator"
   },
