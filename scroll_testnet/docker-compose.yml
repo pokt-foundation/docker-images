@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  oasys:
+    container_name: scroll
+    image: pocketfoundation/scroll-testnet:v3.3.1
+    cpus: 4
+    mem_limit: "16GB"
+    # command: " init genesis.json"
+    command: "--networkid=534353 \
+              --scroll-alpha \
+              --syncmode=full \ 
+              --http \
+              --http.addr=0.0.0.0 \ 
+              --maxpeers=1000 \ 
+              --http.corsdomain=* \ 
+              --http.vhosts=* \
+              --http.port=8545 \
+              --http.api=eth,net,web3,scroll \
+              --cache.noprefetch=true \
+              --gcmode=archive \ 
+              --trace.mptwitness=2"
+              # --verbosity=5"
+    ports:
+      - "8545:8545"
+      - "30303:30303"
+      - "30303:30303/udp"
+    volumes:
+      - "/scroll-data-dir:/data"
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
