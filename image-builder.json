@@ -24,6 +24,14 @@
     "watch_repo": "ledgerwatch/erigon"
   },
   {
+    "image": "pocketfoundation/erigon-bor",
+    "context": "erigon-bor",
+    "dockerfile": "Dockerfile",
+    "tag": "v0.0.7",
+    "autobuild": true,
+    "watch_repo": "maticnetwork/erigon"
+  },
+  {
     "image": "pocketfoundation/heimdall",
     "context": "heimdall",
     "dockerfile": "Dockerfile",
