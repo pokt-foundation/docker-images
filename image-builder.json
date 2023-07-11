@@ -67,7 +67,7 @@
     "image": "pocketfoundation/kava-rocksdb",
     "context": "kava-rocksdb",
     "dockerfile": "Dockerfile",
-    "tag": "v0.23.3",
+    "tag": "v0.24.0",
     "autobuild": true,
     "watch_repo": "Kava-Labs/kava"
   },

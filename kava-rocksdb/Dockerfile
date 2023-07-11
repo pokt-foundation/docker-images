@@ -1,7 +1,7 @@
 FROM --platform=linux/amd64 ubuntu:22.04 as builder
 
 ARG KAVA_GIT_URL="https://github.com/kava-labs/kava.git"
-ARG KAVA_RELEASE="v0.23.3"
+ARG KAVA_RELEASE="v0.24.0"
 ARG ROCKSDB_GIT_URL="https://github.com/facebook/rocksdb.git"
 ARG ROCKSDB_RELEASE="v7.10.2"
 
