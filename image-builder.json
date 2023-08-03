@@ -78,6 +78,14 @@
     "tag": "v3.3.1",
     "autobuild": true,
     "watch_repo": "scroll-tech/go-ethereum"
+  },
+  {
+    "image": "pocketfoundation/base",
+    "context": "base",
+    "dockerfile": "Dockerfile",
+    "tag": "v0.3.0",
+    "autobuild": true,
+    "watch_repo": "base-org/node"
   }
 ]
 
