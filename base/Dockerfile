@@ -1,16 +1,7 @@
 # syntax=docker/dockerfile:1-labs
 FROM golang:1.19 as op
 
-ARG GIT_URL="https://github.com/base-org/node.git"
-ARG RELEASE="v0.3.0"
-
-RUN apt-get update && \
-    apt-get install -y jq curl git && \
-    rm -rf /var/lib/apt/lists
-
-RUN git clone $GIT_URL 
-
-WORKDIR /app
+WORKDIR /data
 
 ENV REPO=https://github.com/ethereum-optimism/optimism
 ENV VERSION=v1.1.1
@@ -23,7 +14,7 @@ RUN tar -xvf ./$VERSION.tar.gz --strip-components=1 && \
 
 FROM golang:1.19 as geth
 
-WORKDIR /app
+WORKDIR /data
 
 ENV REPO=https://github.com/ethereum-optimism/op-geth
 ENV VERSION=v1.101106.0
@@ -38,7 +29,7 @@ FROM golang:1.19 as builder
 ARG GIT_URL="https://github.com/base-org/node.git"
 ARG RELEASE="v0.3.0"
 
-WORKDIR /app
+WORKDIR /data
 
 RUN apt-get update && \
     apt-get install -y jq curl git && \
@@ -52,11 +43,11 @@ RUN apt-get update && \
     apt-get install -y jq curl && \
     rm -rf /var/lib/apt/lists
 
-WORKDIR /app
+WORKDIR /data
 
-COPY --from=op /app/op-node/bin/op-node ./
-COPY --from=geth /app/build/bin/geth ./
-COPY --from=builder /app/node/geth-entrypoint .
-COPY --from=builder /app/node/op-node-entrypoint .
-COPY --from=builder /app/node/goerli ./goerli
-COPY --from=builder /app/node/mainnet ./mainnet
+COPY --from=op /data/op-node/bin/op-node ./
+COPY --from=geth /data/build/bin/geth ./
+COPY --from=builder /data/node/geth-entrypoint .
+COPY --from=builder /data/node/op-node-entrypoint .
+COPY --from=builder /data/node/goerli ./goerli
+COPY --from=builder /data/node/mainnet ./mainnet
