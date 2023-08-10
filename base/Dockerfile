@@ -43,11 +43,23 @@ RUN apt-get update && \
     apt-get install -y jq curl && \
     rm -rf /var/lib/apt/lists
 
+ENV USERNAME=appuser \
+    APP_PATH=/data
+
 WORKDIR /app
 
-COPY --from=op /app/op-node/bin/op-node ./
-COPY --from=geth /app/build/bin/geth ./
+
+COPY --from=op /app/op-node/bin/op-node /usr/local/bin/
+COPY --from=geth /app/build/bin/geth /usr/local/bin/
 COPY --from=builder /app/node/geth-entrypoint .
 COPY --from=builder /app/node/op-node-entrypoint .
 COPY --from=builder /app/node/goerli ./goerli
 COPY --from=builder /app/node/mainnet ./mainnet
+
+RUN  chmod a+x /usr/local/bin/geth /usr/local/bin/op-node
+
+RUN groupadd -g 1001 ${USERNAME} \
+    && useradd -m -d ${APP_PATH} -u 1001 -g 1001 ${USERNAME}
+
+WORKDIR ${APP_PATH}
+USER ${USERNAME}
