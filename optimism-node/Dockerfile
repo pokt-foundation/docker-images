@@ -32,4 +32,3 @@ WORKDIR ${APP_PATH}
 USER ${USERNAME}
 
 ENTRYPOINT ["op-node"]
-CMD ["--help"]

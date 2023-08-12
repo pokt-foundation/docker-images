@@ -29,4 +29,3 @@ WORKDIR ${APP_PATH}
 USER ${USERNAME}
 
 ENTRYPOINT ["geth"]
-CMD ["--help"]
