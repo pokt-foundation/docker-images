@@ -56,6 +56,22 @@
     "watch_repo": "oasysgames/oasys-validator"
   },
   {
+    "image": "pocketfoundation/optimism-geth",
+    "context": "optimism-geth",
+    "dockerfile": "Dockerfile",
+    "tag": "v1.101106.0",
+    "autobuild": true,
+    "watch_repo": "ethereum-optimism/op-geth"
+  },
+  {
+    "image": "pocketfoundation/optimism-node",
+    "context": "optimism-node",
+    "dockerfile": "Dockerfile",
+    "tag": "v1.1.1",
+    "autobuild": true,
+    "watch_repo": "ethereum-optimism/optimism"
+  },
+  {
     "image": "pocketfoundation/kava",
     "context": "kava",
     "dockerfile": "Dockerfile",
