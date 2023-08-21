@@ -3,6 +3,7 @@ FROM --platform=linux/amd64 debian:bullseye
 ARG GIT_URL="https://github.com/MystenLabs/sui"
 ARG RELEASE="mainnet-v1.7.1"
 
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV USERNAME=appuser \
     APP_PATH=/data
@@ -21,9 +22,6 @@ RUN wget -O /usr/local/bin/sui-node ${GIT_URL}/releases/download/${RELEASE}/sui-
 
 RUN groupadd -g 1001 ${USERNAME} \
     && useradd -m -d ${APP_PATH} -u 1001 -g 1001 ${USERNAME}
-
-# EXPOSE 8545 8550 8551 8546 30303 30303/udp 30304 30304/udp 8080 9090 6060
-# VOLUME ${APP_PATH}
 
 WORKDIR ${APP_PATH}
 USER ${USERNAME}

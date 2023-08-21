@@ -11,7 +11,7 @@
     "image": "pocketfoundation/bsc",
     "context": "bsc",
     "dockerfile": "Dockerfile",
-    "tag": "v1.2.1",
+    "tag": "v1.2.5",
     "autobuild": true,
     "watch_repo": "bnb-chain/bsc"
   },
@@ -19,15 +19,23 @@
     "image": "pocketfoundation/erigon",
     "context": "erigon",
     "dockerfile": "Dockerfile",
-    "tag": "v2.43.0",
+    "tag": "v2.48.0",
     "autobuild": true,
     "watch_repo": "ledgerwatch/erigon"
+  },
+  {
+    "image": "pocketfoundation/erigon-bor",
+    "context": "erigon-bor",
+    "dockerfile": "Dockerfile",
+    "tag": "v0.0.8",
+    "autobuild": true,
+    "watch_repo": "maticnetwork/erigon"
   },
   {
     "image": "pocketfoundation/heimdall",
     "context": "heimdall",
     "dockerfile": "Dockerfile",
-    "tag": "v0.3.3",
+    "tag": "v0.3.4",
     "autobuild": true,
     "watch_repo": "maticnetwork/heimdall"
   },
@@ -43,9 +51,25 @@
     "image": "pocketfoundation/oasys",
     "context": "oasys",
     "dockerfile": "Dockerfile",
-    "tag": "v1.0.6",
+    "tag": "v1.1.0",
     "autobuild": true,
     "watch_repo": "oasysgames/oasys-validator"
+  },
+  {
+    "image": "pocketfoundation/optimism-geth",
+    "context": "optimism-geth",
+    "dockerfile": "Dockerfile",
+    "tag": "v1.101106.0",
+    "autobuild": true,
+    "watch_repo": "ethereum-optimism/op-geth"
+  },
+  {
+    "image": "pocketfoundation/optimism-node",
+    "context": "optimism-node",
+    "dockerfile": "Dockerfile",
+    "tag": "v1.1.1",
+    "autobuild": true,
+    "watch_repo": "ethereum-optimism/optimism"
   },
   {
     "image": "pocketfoundation/kava",
@@ -56,10 +80,18 @@
     "watch_repo": "Kava-Labs/kava"
   },
   {
+    "image": "pocketfoundation/kava-rocksdb",
+    "context": "kava-rocksdb",
+    "dockerfile": "Dockerfile",
+    "tag": "v0.24.0",
+    "autobuild": true,
+    "watch_repo": "Kava-Labs/kava"
+  },
+  {
     "image": "pocketfoundation/zkevm-node",
     "context": "polygon-zkevm",
     "dockerfile": "Dockerfile",
-    "tag": "v0.0.7",
+    "tag": "v0.1.2",
     "autobuild": true,
     "watch_repo": "0xPolygonHermez/zkevm-node"
   },
@@ -70,6 +102,21 @@
     "tag": "mainnet-v1.7.1",
     "autobuild": true,
     "watch_repo": "MystenLabs/sui"
+  },
+  {
+    "image": "pocketfoundation/scroll-testnet",
+    "context": "scroll",
+    "dockerfile": "Dockerfile",
+    "tag": "v3.3.1",
+    "autobuild": true,
+    "watch_repo": "scroll-tech/go-ethereum"
+  },
+  {
+    "image": "pocketfoundation/base",
+    "context": "base",
+    "dockerfile": "Dockerfile",
+    "tag": "v0.3.0",
+    "autobuild": true,
+    "watch_repo": "base-org/node"
   }
 ]
-
