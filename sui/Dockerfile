@@ -1,7 +1,7 @@
 FROM --platform=linux/amd64 rust:1.70.0 AS builder
 
 ARG GIT_URL="https://github.com/MystenLabs/sui"
-ARG RELEASE="mainnet-v1.6.3"
+ARG RELEASE="mainnet-v1.7.1"
 
 #build-base linux-headers git bash ca-certificates libstdc++
 RUN apt update && \
