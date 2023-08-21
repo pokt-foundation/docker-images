@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-ARG RELEASE="v1.1.0"
+ARG RELEASE="v1.2.0"
 
 ENV USERNAME=appuser \
     APP_PATH=/data
