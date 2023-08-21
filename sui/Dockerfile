@@ -1,9 +1,7 @@
 FROM --platform=linux/amd64 debian:bullseye
 
 ARG GIT_URL="https://github.com/MystenLabs/sui"
-
-# AUTO_UPDATE_GIT_COMMIT - next line will be overwritten by build.sh to the latest found releas
-ARG RELEASE="mainnet-v1.2.0"
+ARG RELEASE="mainnet-v1.7.1"
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV USERNAME=appuser \
