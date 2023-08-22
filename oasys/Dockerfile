@@ -1,5 +1,6 @@
 FROM debian:bullseye
 
+ARG GIT_URL="https://github.com/oasysgames/oasys-validator"
 ARG RELEASE="v1.2.0"
 
 ENV USERNAME=appuser \
@@ -17,13 +18,13 @@ RUN apt update && \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/geth-${RELEASE}-linux-amd64.zip \
+RUN wget ${GIT_URL}/releases/download/${RELEASE}/geth-${RELEASE}-linux-amd64.zip \
     && unzip geth-${RELEASE}-linux-amd64.zip \
     && rm geth-${RELEASE}-linux-amd64.zip \
     && mv geth /usr/local/bin/ \
     && chmod +x /usr/local/bin/geth
 
-RUN wget https://github.com/oasysgames/oasys-validator/releases/download/${RELEASE}/genesis.zip \
+RUN wget ${GIT_URL}/releases/download/${RELEASE}/genesis.zip \
     && unzip genesis.zip  \
     && rm genesis.zip \
     && mv genesis/mainnet.json /genesis.json \
