@@ -1,0 +1,116 @@
+FROM debian:12-slim
+
+ARG GLPI_REPO="https://github.com/glpi-project/glpi"
+# AUTO_UPDATE_GIT_COMMIT - next line will be overwritten by build.sh to the latest found releas
+ARG GLPI_RELEASE="10.0.9"
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PHP_VERSION="8.2" \
+    USERNAME=appuser \
+    APP_PATH=/src
+
+
+
+ENV GLPI_DIR=/var/www/glpi \
+    GLPI_CONFIG_DIR=/etc/glpi \
+    GLPI_VAR_DIR=/var/lib/glpi
+    #  \
+    # GLPI_LOG_DIR : set path to logs files.
+
+RUN apt update && \
+    apt -y dist-upgrade && \
+    apt install -y --no-install-recommends \
+        tzdata \
+        ca-certificates \
+        curl \
+        php${PHP_VERSION} \
+        php${PHP_VERSION}-mysql \
+        php${PHP_VERSION}-ldap \
+        php${PHP_VERSION}-xmlrpc \
+        php${PHP_VERSION}-imap \
+        php${PHP_VERSION}-curl \
+        php${PHP_VERSION}-gd \
+        php${PHP_VERSION}-mbstring \
+        php${PHP_VERSION}-xml \
+        php-cas \
+        php${PHP_VERSION}-intl \
+        php${PHP_VERSION}-zip \
+        php${PHP_VERSION}-bz2 \
+        php${PHP_VERSION}-redis \
+        php${PHP_VERSION}-opcache \
+        nginx-light \
+        && \
+    rm -rf /var/cache/apt/*
+
+RUN php -v
+
+WORKDIR $GLPI_DIR
+ADD ${GLPI_REPO}/releases/download/${GLPI_RELEASE}/glpi-${GLPI_RELEASE}.tgz ./
+RUN tar -xvf glpi-${GLPI_RELEASE}.tgz --strip-components=1 && \
+    rm glpi-${GLPI_RELEASE}.tgz && \
+    mv ./config $GLPI_CONFIG_DIR && \
+    mv ./files $GLPI_VAR_DIR
+     # && \
+
+ADD downstream.php $GLPI_DIR/inc/
+ADD local_define.php $GLPI_CONFIG_DIR/
+ADD glpi /etc/nginx/sites-available/
+
+RUN rm /etc/nginx/sites-enabled/default && \
+    ln -s /etc/nginx/sites-available/glpi /etc/nginx/sites-enabled/glpi
+
+# if [[ -z "${TIMEZONE}" ]]; then echo "TIMEZONE is unset"; 
+# else 
+# echo "date.timezone = \"$TIMEZONE\"" > /etc/php/8.1/apache2/conf.d/timezone.ini;
+# echo "date.timezone = \"$TIMEZONE\"" > /etc/php/8.1/cli/conf.d/timezone.ini;
+# fi
+
+
+# #Installation d'apache et de php8.1 avec extension
+# RUN apt update \
+# && apt install --yes ca-certificates apt-transport-https lsb-release wget curl \
+# && curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg \ 
+# && sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
+# && apt update \
+# && apt install --yes --no-install-recommends \
+# apache2 \
+# php8.1 \
+# php8.1-mysql \
+# php8.1-ldap \
+# php8.1-xmlrpc \
+# php8.1-imap \
+# php8.1-curl \
+# php8.1-gd \
+# php8.1-mbstring \
+# php8.1-xml \
+# php-cas \
+# php8.1-intl \
+# php8.1-zip \
+# php8.1-bz2 \
+# php8.1-redis \
+# cron \
+# jq \
+# libldap-2.4-2 \
+# libldap-common \
+# libsasl2-2 \
+# libsasl2-modules \
+# libsasl2-modules-db \
+# && rm -rf /var/lib/apt/lists/*
+
+# #Copie et execution du script pour l'installation et l'initialisation de GLPI
+# COPY glpi-start.sh /opt/
+# RUN chmod +x /opt/glpi-start.sh
+# ENTRYPOINT ["/opt/glpi-start.sh"]
+
+
+
+# RUN groupadd -g 1001 ${USERNAME} \
+#     && useradd -m -d ${APP_PATH} -u 1001 -g 1001 ${USERNAME}
+
+# EXPOSE 8080
+# VOLUME ${APP_PATH}
+
+# WORKDIR ${APP_PATH}
+# USER ${USERNAME}
+
+# ENTRYPOINT ["erigon"]
