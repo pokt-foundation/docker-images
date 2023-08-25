@@ -118,6 +118,14 @@
     "tag": "v0.3.0",
     "autobuild": true,
     "watch_repo": "base-org/node"
+  },
+  {
+    "image": "pocketfoundation/scroll-sepolia",
+    "context": "scroll-sepolia",
+    "dockerfile": "Dockerfile",
+    "tag": "v4.3.51",
+    "autobuild": true,
+    "watch_repo": "scroll-tech/go-ethereum"
   }
 ]
 
