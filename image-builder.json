@@ -120,8 +120,8 @@
     "watch_repo": "base-org/node"
   },
   {
-    "image": "pocketfoundation/scroll-sepolia",
-    "context": "scroll-sepolia",
+    "image": "pocketfoundation/scroll",
+    "context": "scroll",
     "dockerfile": "Dockerfile",
     "tag": "v4.3.51",
     "autobuild": true,
