@@ -99,7 +99,7 @@
     "image": "pocketfoundation/sui",
     "context": "sui",
     "dockerfile": "Dockerfile",
-    "tag": "mainnet-v1.7.1",
+    "tag": "mainnet-v1.8.2",
     "autobuild": true,
     "watch_repo": "MystenLabs/sui"
   },
