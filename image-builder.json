@@ -120,6 +120,14 @@
     "watch_repo": "base-org/node"
   },
   {
+    "image": "pocketfoundation/optimism-geth",
+    "context": "optimism-geth",
+    "dockerfile": "Dockerfile",
+    "tag": "v1.101200.1-rc.2",
+    "autobuild": true,
+    "watch_repo": "ethereum-optimism/op-geth"
+  },
+  {
     "image": "pocketfoundation/scroll",
     "context": "scroll",
     "dockerfile": "Dockerfile",
