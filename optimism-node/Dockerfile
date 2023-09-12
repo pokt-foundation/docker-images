@@ -5,7 +5,7 @@ FROM golang:1.19 as op-node
 WORKDIR /app
 
 ENV GIT_URL=https://github.com/ethereum-optimism/optimism
-ENV RELEASE="v1.1.1"
+ENV RELEASE="v1.1.4"
 
 ADD $GIT_URL/archive/refs/tags/op-node/$RELEASE.tar.gz ./
 RUN tar -xvf ./$RELEASE.tar.gz --strip-components=1 && \
