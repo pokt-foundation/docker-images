@@ -2,7 +2,7 @@
 FROM golang:1.19 as op-geth
 
 ENV GIT_URL=https://github.com/ethereum-optimism/op-geth
-ENV RELEASE="v1.101200.1-rc.2"
+ENV RELEASE="v1.101200.1"
 
 WORKDIR /app
 ADD $GIT_URL/archive/refs/tags/$RELEASE.tar.gz ./
